@@ -1,0 +1,29 @@
+// Place all the styles related to the rooms controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.ribbon {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  top: 235px;
+  left: 0px;
+  color: #fff;
+  background-color: #f3715d;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+
+
+.ribbon.ribbon-pale-green {
+  color: #FFF;
+  background-color: rgba(66, 139, 202, 0.85);
+}
+
+.ribbon.ribbon-pale-green:after {
+  border-color: rgba(66, 139, 202, 1) rgba(66, 139, 202, 0.85) transparent transparent;
+}
+
+
+

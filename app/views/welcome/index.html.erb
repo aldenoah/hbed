@@ -1,0 +1,72 @@
+<% title 'Professional Chiropractor Service in Kota Kinabalu & Brunei' %>
+<% description "Borneo Chiropractic & Injury Centre - Professional Chiropractor Service in Kota Kinabalu & Brunei" %>
+
+<% content_for :for_head do %>
+  <meta property="og:title" content="Borneo Chiropractic & Injury Centre - Professional Chiropractor Service in Kota Kinabalu & Brunei" />
+  <meta property="og:image" content="<%= asset_url '' %>" />
+  <meta property="og:url" content="http://www.borneochiropractic.com" />
+  <meta property="og:description" content="Borneo Chiropractic & Injury Centre - Professional Chiropractor Service in Kota Kinabalu & Brunei" />
+<% end %>
+
+
+<div class="container-full">
+  <div id="home-hero-container" class="jumbotron squarify"> 
+  <div class="img-overlay">
+
+    <div class="home-hero container">  
+    <h1 class="hero-title desktop-visible">Discover and rent hourly rooms</h1>
+      <div class="hero-form-container">
+        <div id="home-map-picker-box" class="roundify">
+          <%= form_tag root_path, method: :post do %>
+          <div class="row">
+            <div class="col-md-3 pad-right-5">
+              <%= select_tag :area, options_for_select(@areas.collect {|u| [ u.name, u.id ] }), prompt: "Select destination", class: "form-input select-fix" %>
+            </div>
+            <div class="col-md-2 pad-right-5 pad-left-5">
+              <%= text_field_tag :date, params[:date], placeholder: 'Select date', autocomplete: 'off', readonly: true, class: "form-input" %> 
+            </div>
+            <div class="col-md-2 pad-right-5 pad-left-5">
+              <%= select_tag :time, options_for_select(Area::TIME_SELECT), prompt: "Select time", class: "form-input select-fix" %>  
+            </div>
+            <div class="col-md-2 pad-right-5 pad-left-5">
+              <%= select_tag :duration, options_for_select(Area::DURATION_SELECT), prompt: "Select duration", class: "form-input select-fix" %>
+            </div>
+            <div class="col-md-3 pad-left-5">
+               <%= button_tag "SEARCH", data: {disable_with: "WAIT..."}, class: "btn btn-lg btn-primary full-width" %>
+            </div>
+          </div>
+
+          <% end %>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<br>
+<div class="container">
+<h1 class="line-behind"><span>TOP LOCATIONS</span></h1>
+<div class="row">
+  <div class="col-md-8">
+    <%=  link_to area_path(id: 1) do %>
+    <div class="area-wrapper">
+      <%= image_tag("bg.jpg") %>
+      <div class="area-description">
+        <h1>Kota Kinabalu</h1>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div class="col-md-4">
+    <%=  link_to area_path(id: 2) do %>
+    <div class="area-wrapper">
+      <%= image_tag("bg.jpg") %>
+      <div class="area-description">
+        <h1>Penampang</h1>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+</div>

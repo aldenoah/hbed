@@ -1,0 +1,106 @@
+.datepicker {
+    padding: 8px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 0;
+}
+
+.dropdown-menu {
+   border: 1px solid #cecece;
+   margin: 10px 0 0;
+}
+
+
+
+.datepicker-dropdown.datepicker-orient-top:after {
+    top: -5px;
+    left: 50%;
+}
+
+.table-condensed > thead > tr > th, .table-condensed > thead > tr > td, .table-condensed > tbody > tr > th, .table-condensed > tbody > tr > td, .table-condensed > tfoot > tr > th, .table-condensed > tfoot > tr > td {
+	padding: 8px;
+	border: 1px solid #cecece;
+}
+
+.datepicker td, .datepicker th {
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 0;
+    border: none;
+}
+
+.datepicker table tr td.old, .datepicker table tr td.new {
+    background-color: #fff;
+    color: #cecece;
+}
+
+.datepicker table tr td.active, .datepicker table tr td.active:hover, .datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled:hover {
+    background-color: #3071a9;
+    background-image: -moz-linear-gradient(top, #3071a9, #3071a9);
+    background-image: -ms-linear-gradient(top, #3071a9, #3071a9);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3071a9), to(#3071a9));
+    background-image: -webkit-linear-gradient(top, #3071a9, #3071a9);
+    background-image: -o-linear-gradient(top, #3071a9, #3071a9);
+    background-image: linear-gradient(top, #3071a9, #3071a9);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3071a9', endColorstr='#3071a9', GradientType=0);
+    border-color: #0044cc #0044cc #002a80;
+    border-color: #cecece;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
+    background: #d8d8d8;
+    color: #cecece;
+    cursor: default;
+}
+
+.popover {
+    border-radius: 0;
+    max-width: 260px;
+    width: 260px;
+    border: 1px solid #cecece;
+}
+
+.clockpicker-plate {
+    margin: auto;
+}
+
+.popover.bottom > .arrow {
+    left: 50%;
+    margin-left: -11px;
+    border-top-width: 0;
+    border-bottom-color: #999999;
+    border-bottom-color: rgba(0, 0, 0, 0.25);
+    top: -6px;
+    z-index: -1;
+}
+
+.datepicker-inline {
+    width: 100%;
+    padding: 0;
+    .table-condensed {
+    width: 100%;
+    tbody > tr > td {
+      padding: 8px 8px 30px 8px;
+    text-align: right;
+    }
+    tbody > tr > td.active {
+      background-color: #d8d8d8;
+    }
+    tbody > tr > td.old {
+      background-color: #d8d8d8;
+      cursor: default;
+    }
+    tbody > tr > td.new {
+      background-color: #d8d8d8;
+      cursor: default;
+    }
+    }
+}
+

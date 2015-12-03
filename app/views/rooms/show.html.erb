@@ -1,0 +1,43 @@
+<div class="flexslider">
+  <ul class="slides">
+    <li>
+      <%= image_tag("bg.jpg") %>
+    </li>
+    <li>
+      <%= image_tag("bg.jpg") %>
+    </li>
+    <li>
+      <%= image_tag("bg.jpg") %>
+    </li> 
+  </ul>
+</div>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-8">
+    <h1><%= @room.name %></h1>
+    <p>Beverly Hills, Kota Kinabalu</p>
+
+<hr>  <p class="text-area">
+    <%= @room.description %>
+  </p>
+
+
+  </div>
+  <div class="col-md-4">
+  </div>
+</div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('.flexslider').flexslider({
+      prevText: "",
+      nextText: "",
+      animation: "slide",
+      slideshow: true,
+      slideshowSpeed: 4500,
+      touch: true
+    });
+  });
+</script>
