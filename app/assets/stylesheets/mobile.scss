@@ -9,6 +9,10 @@
       display: none;
   };
 
+  .nomobPad {
+    padding: 0 !important;
+  }
+
   #home-map-canvas-legend {
       text-align: center;
       font-size: 13px;
@@ -80,7 +84,7 @@
 }
   .area-wrapper {
     height: 200px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     img {
     width: 100%;
     height: 100%;
