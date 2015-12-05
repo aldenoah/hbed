@@ -208,9 +208,9 @@ body {
 
 .img-overlay {
   background-color: transparent;
-  background-image: linear-gradient(rgba(255, 255, 255 ,0) 0%, rgba(0, 0, 0, 0.2) 0%);
-  background-image: -moz-linear-gradient(rgba(255, 255, 255 ,0) 0%, rgba(0, 0, 0, 0.2) 0%);
-  background-image: -webkit-linear-gradient(rgba(255, 255, 255 ,0) 0%, rgba(0, 0, 0, 0.2) 0%); 
+  background-image: linear-gradient(rgba(255, 255, 255 ,0) 0%, rgba(0, 0, 0, 0.3) 0%);
+  background-image: -moz-linear-gradient(rgba(255, 255, 255 ,0) 0%, rgba(0, 0, 0, 0.3) 0%);
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255 ,0) 0%, rgba(0, 0, 0, 0.3) 0%); 
   height: 100%;
 }
 
@@ -226,16 +226,16 @@ body {
     font-size: 60px;
     font-weight: bold;
     margin: auto;
-    margin-bottom: 60px;
+    margin-bottom: 15px;
     margin-top: 100px;
     text-shadow: 1px 1px 2px #331f04;
   }
   .hero-subtext {
-    font-size: 16px;
+    font-size: 26px;
+    font-weight: bold;
     margin: auto;
     color: #FFF;
-    margin-bottom: 35px;
-    max-width: 550px;
+    margin-bottom: 60px;
     text-shadow: 1px 1px 1px #331f04;
   }
 }
@@ -387,7 +387,7 @@ body {
     margin: 25px 0;
     font-size: 24px;
     span {
-      background: #fff;
+      background: #f1f1f1;
       padding: 0 15px;
     }
 }
