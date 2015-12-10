@@ -21,16 +21,16 @@
           <%= form_tag search_rooms_path, method: :post do %>
           <div class="row">
             <div class="col-md-5 pad-right-5">
-              <%= select_tag :area, options_for_select(@areas.collect {|u| [ u.name, u.id ] }), prompt: "Select destination", class: "form-input select-fix" %>
+              <%= select_tag :area, options_for_select(@areas.collect {|u| [ u.name, u.id ] }), selected: 1, class: "form-input select-fix" %>
             </div>
             <div class="col-md-2 pad-right-5 pad-left-5">
               <%= text_field_tag :date, params[:date], placeholder: 'Select date', autocomplete: 'off', readonly: true, class: "form-input" %> 
             </div>
             <div class="col-md-2 pad-right-5 pad-left-5">
-              <%= select_tag :duration, options_for_select(Area::DURATION_SELECT), prompt: "Select duration", class: "form-input select-fix" %>
+              <%= select_tag :duration, options_for_select(Area::DURATION_SELECT), selected: "3 hours", class: "form-input select-fix" %>
             </div>
             <div class="col-md-3 pad-left-5">
-               <%= button_tag "SEARCH", data: {disable_with: "WAIT..."}, class: "btn btn-lg btn-primary full-width" %>
+               <%= button_tag "Check Rates", data: {disable_with: "WAIT..."}, class: "btn btn-lg btn-primary full-width" %>
             </div>
           </div>
           <% end %>
