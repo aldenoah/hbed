@@ -1,8 +1,11 @@
+<%= render 'layouts/header' %>
+
+
 <div class="container-full">
 <div class="row">
   <div class="col-md-3 zeroRight desktop-visible">
     <div class="filterbar">
-      REFINE YOUR SEARCH HERE<span class="glyphicon glyphicon-chevron-down glyphRight" aria-hidden="true"></span> 
+      MODIFY SEARCH<span class="glyphicon glyphicon-chevron-down glyphRight" aria-hidden="true"></span> 
     </div>
   </div>
   <div class="col-md-9 zeroLeft">
@@ -15,7 +18,41 @@
 <div class="row">
   <div class="col-md-3 zeroRight desktop-visible">
     <div class="sidebar">
-      <%= @area.name %>
+      <div style="padding: 15px;">
+      <%= search_form_for @search, url: area_path(@area), html: { method: :get } do |f| %>
+        <div class="row">
+          <div class="col-md-6 padRight-5">
+            <%= f.select :area_id_eq, options_from_collection_for_select(Area.all, "id", "name", @search.area_id_eq), {:prompt => "Select destination"}, class: "form-input select-fix marBot-10 noBor" %>
+          </div>
+          <div class="col-md-6 padLeft-5">
+            <%= select_tag :duration, options_for_select(Area::DURATION_SELECT), prompt: "Select duration", class: "form-input select-fix marBot-10 noBor" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 padRight-5">
+            <%= text_field_tag :date, params[:date], placeholder: 'Select date', autocomplete: 'off', readonly: true, class: "form-input marBot-15 noBor datepicker1" %>
+          </div>
+          <div class="col-md-6 padLeft-5">
+            <%= select_tag :time, options_for_select(Area::TIME_SELECT), prompt: "Select time", class: "form-input select-fix marBot-15 noBor" %>
+          </div>
+        </div>  
+          
+          <%= button_tag "Find Rooms", data: {disable_with: "WAIT..."}, class: "btn btn-lg btn-danger full-width" %>
+      <% end %>
+      </div>
+      <br>
+      <div class="filter-bar">
+        REFINE CURRENT SEARCH<span class="glyphicon glyphicon-chevron-right glyphRight" aria-hidden="true"></span> 
+      </div>
+      <div style="padding: 15px;">
+      <%= search_form_for @search, url: area_path(@area), html: { method: :get } do |f| %>
+        <%= f.select :area_id_eq, options_from_collection_for_select(Area.all, "id", "name", @search.area_id_eq), {:prompt => "Select destination"}, class: "form-input select-fix marBot-10 noBor" %>
+        <div class="text-right">
+        <%= button_tag "Update", data: {disable_with: "WAIT..."}, class: "btn btn-default" %>
+         </div>
+      <% end %>
+      </div>
     </div>
   </div>
 
@@ -24,7 +61,7 @@
     <div class="row">
       <% @rooms.each do |room| %>
       <div class="col-md-6">
-      <%= link_to room_path(room) do %>
+      <%= link_to room_path(room), target: "_blank" do %>
         <div class="room-wrapper">
           <%= image_tag('bg.jpg') %>
 
@@ -44,3 +81,19 @@
   </div>
 </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+    $('.datepicker1').datepicker({
+      format: 'yyyy-mm-dd',
+      startDate: "+0d",
+      endDate: "+90d",
+      orientation: "left bottom",
+      /* datesDisabled: ["2015-11-07","2015-11-10"], */
+      /* daysOfWeekDisabled: "06", */
+      /* daysOfWeekDisabled: "12345", */
+      weekStart: "1",
+      autoclose: true,
+    });
+  });
+</script>

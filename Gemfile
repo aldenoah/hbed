@@ -35,6 +35,8 @@ gem 'bootstrap-datepicker-rails'
 gem 'coffee-script-source', '1.8.0'
 gem 'braintree'
 gem 'gon'
+gem 'momentjs-rails'
+gem 'fullcalendar-rails'
 
 group :production do
 	gem 'rails_12factor'

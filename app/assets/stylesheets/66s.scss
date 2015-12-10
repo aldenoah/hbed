@@ -1,31 +1,79 @@
-@media only screen and (min-width: 1271px) {
+@media (max-width : 414px) and (min-width : 376px) {
   .mobile-visible {
-      visibility: hidden;
-      display: none;
-  };
-
-  .desktop-visible {
       visibility: visible;
       display: block;
   };
 
-  .pad-right-5 {
-  padding-right: 2px;
+  .desktop-visible {
+      visibility: hidden;
+      display: none;
   };
 
-  .pad-left-5 {
-   padding-left: 2px;
-  };
+  .nomobPad {
+    padding: 0 !important;
+  }
 
-  .container-fluid {
-  padding-left: 35px;
-  padding-right: 35px;
- }
+  #home-map-canvas-legend {
+      text-align: center;
+      font-size: 13px;
+      margin: 7px 0 15px 0;
+      font-weight: bold;
+      color: #eaeaea;
+  }
+
+  #home-map-canvas-legend-2 {
+      text-align: center;
+      font-size: 13px;
+      margin: 7px 0 15px 0;
+      font-weight: bold;
+      color: #168ccc;
+  }
+
+  #home-map-canvas-legend-3 {
+      text-align: center;
+      font-size: 13px;
+      margin: 7px 0 15px 0;
+      font-weight: bold;
+      color: #FFF;
+  }
+
+  .top-section {
+    background: #F1F1F1;
+    padding: 25px 0 15px;
+    margin-bottom: 25px;
+    h1 {
+      margin: 0;
+      font-size: 24px; 
+    }
+    p {
+      margin: 0;
+    }
+  }
+
+
+  .search-tabs {
+    background: #F1F1F1;
+    padding: 25px 0 15px;
+    margin-bottom: 25px;
+  } 
+
+  .price-breakdown {
+    background-color: #FFF;
+    padding: 10px;
+    margin: 0;
+    border: 0;
+  } 
+
+  .mini-details {
+    font-size: 11px;
+  } 
+
   .form-input {
     width: 100%;
-    padding: 12px 8px;
+    padding: 12px 4px;
     font-size: 13px;
     height: 100%;
+    margin-bottom: 10px;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -33,20 +81,17 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     color: #333;
-    &:focus {
-      border: 1px solid #cecece;
-      outline: none !important;
-    }
+    border:none;
 }
-
-
   .area-wrapper {
-    height: 320px;
+    height: 220px;
+    margin-bottom: 0;
     img {
     width: 100%;
     height: 100%;
     }
     h1 {
+      font-size: 22px;
       position-x: 50%;
     }
   }
@@ -58,7 +103,7 @@
     left: 0%;
     text-align: center;
     h1 {
-      font-size: 30px;
+      font-size: 24px;
       margin: 0;
       color: #FFF;
       font-weight: bold;
@@ -67,12 +112,12 @@
   }
 
   .roomWrapper {
-  padding: 30px 30px 30px 15px;
+    padding: 0;
   }
 
   .listing-price {
     position: absolute;
-    top: 5px;
+    top: -75px;
     left: 20px;
     z-index: 100;
   }
@@ -80,14 +125,12 @@
   .room-wrapper {
     float: left;
     position: relative;
-    margin-bottom: 25px;
+    margin-bottom: 0;
     background-color: #fff;
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid #cecece;
     img {
       width: 100%;
-      height: 300px;
+      height: 220px;
     }
     .room-description {
       padding: 20px;
@@ -101,7 +144,6 @@
     }
   }
 
-
   .home-hero {
     text-align: center;
     padding: 100px 0;
@@ -110,19 +152,19 @@
     }
     .hero-title {
       color: #FFF;
-      font-size: 60px;
-      font-weight: bold;
-      margin: auto;
-      margin-bottom: 15px;
-      margin-top: 80px;
-      text-shadow: 1px 1px 2px #331f04;
-    }
-    .hero-subtext {
       font-size: 26px;
       font-weight: bold;
       margin: auto;
+      margin-bottom: 10px;
+      margin-top: 0px;
+      text-shadow: 1px 1px 2px #331f04;
+    }
+    .hero-subtext {
+      font-size: 14px;
+      font-weight: bold;
+      margin: auto;
       color: #FFF;
-      margin-bottom: 60px;
+      margin-bottom: 20px;
       text-shadow: 1px 1px 1px #331f04;
     }
   }
@@ -133,23 +175,23 @@
       -moz-background-size: cover;
       -o-background-size: cover;
       background-size: cover;
-      background-position-x: 50%;
+      background-position-x: 60%;
       background-position-y: 50%;
       background-color: #3c3431;
       padding: 0px;
       margin: 0;
-      height: 595px;
+      height: 540px;
   }
 
   .hero-form-container {
         margin: auto;
-        width: 90%;
+        width: 85%;
         margin-bottom: 20px;
         position: relative;
         #home-map-picker-box {
           background-color: rgba(0, 0, 0, 0.5);
           padding: 15px;
-          border-radius: 6px;
+          border-radius: 0;
           color: #FFF;
           .home-map-picker-title {
               margin-top: 0;
@@ -165,5 +207,5 @@
             border-top: 1px solid #eeeeee;
         }
     }
-}
 
+}

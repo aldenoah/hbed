@@ -1,0 +1,24 @@
+      <%= form_tag search_rooms_path, method: :post do %>
+        <div class="row">
+          <div class="col-md-6 padRight-5">
+            <%= select_tag :area, options_for_select(@areas.collect {|u| [ u.name, u.id ] }), prompt: "Select destination", class: "form-input select-fix marBot-10 noBor" %>
+          </div>
+          <div class="col-md-6 padLeft-5">
+            <%= select_tag :duration, options_for_select(Area::DURATION_SELECT), prompt: "Select duration", class: "form-input select-fix marBot-10 noBor" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 padRight-5">
+            <%= text_field_tag :date, params[:date], placeholder: 'Select date', autocomplete: 'off', readonly: true, class: "form-input marBot-15 noBor datepicker1" %>
+          </div>
+          <div class="col-md-6 padLeft-5">
+            <%= select_tag :time, options_for_select(Area::TIME_SELECT), prompt: "Select time", class: "form-input select-fix marBot-15 noBor" %>
+          </div>
+        </div>  
+          
+          <%= button_tag "Find Rooms", data: {disable_with: "WAIT..."}, class: "btn btn-lg btn-danger full-width" %>
+      <% end %>
+
+
+                  <%= f.select(:duration_eq, Area::DURATION_SELECT, {prompt: "Select duration"}, {class: "form-input select-fix marBot-10 noBor"}) %>

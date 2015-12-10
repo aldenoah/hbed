@@ -3,6 +3,20 @@ class RoomsController < ApplicationController
 
   # GET /rooms
   # GET /rooms.json
+  def book
+    #@booking = Booking.new
+    #@check_in_time = params[:check_in_time]
+    #@check_in_date = params[:check_in_date]
+    #@guests = params[:guests]
+
+    #@client_token = Braintree::ClientToken.generate #Braintree
+  end
+
+  def search
+    @q = Room.ransack(params[:q])
+    @rooms = @q.result(distinct: true)
+  end
+
   def index
     @rooms = Room.all
   end

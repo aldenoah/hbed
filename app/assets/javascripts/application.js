@@ -18,4 +18,6 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require local_time
+//= require moment
+//= require fullcalendar
 //= require_tree .

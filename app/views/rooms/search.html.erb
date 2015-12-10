@@ -1,0 +1,48 @@
+<%= render 'layouts/header' %>
+
+<div class="container-full">
+<div class="row">
+  <div class="col-md-3 zeroRight desktop-visible">
+    <div class="filterbar">
+      REFINE YOUR SEARCH HERE<span class="glyphicon glyphicon-chevron-down glyphRight" aria-hidden="true"></span> 
+    </div>
+  </div>
+  <div class="col-md-9 zeroLeft">
+    <div class="infobar">
+      Showing 1 - 1 of 1 results for Kota Kinabalu
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3 zeroRight desktop-visible">
+    <div class="sidebar">
+      Testing
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <div class="roomWrapper">
+    <div class="row">
+      <% @rooms.each do |room| %>
+      <div class="col-md-6">
+      <%= link_to room_path(room) do %>
+        <div class="room-wrapper">
+          <%= image_tag('bg.jpg') %>
+
+          <div class="room-description">
+            <div class="listing-price">
+              <span class="ribbon ribbon-pale-green">MYR 50.00 <sub>/ 3 hours</sub></span> 
+            </div>
+            <h1><%= room.name %> Double Room</h1>
+            <p>Beverly Hills, Kota Kinabalu
+          </div>
+        </div>
+      <% end %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  </div>
+</div>
+</div>

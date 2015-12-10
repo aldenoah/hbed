@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require fullcalendar
  *= require_tree .
  *= require_self
  */
@@ -21,3 +22,6 @@
 @import "custom";
 @import "mobile";
 @import "datepicker";
+@import "3gs";
+@import "4s5s";
+@import "66s";

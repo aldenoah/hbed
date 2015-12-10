@@ -10,7 +10,14 @@ class AreasController < ApplicationController
   # GET /areas/1
   # GET /areas/1.json
   def show
-    @rooms = Room.where(area_id: @area.id)
+    @areas = Area.all
+    @search = Room.ransack(params[:q])
+
+    if @search.present?
+      @rooms = @search.result(distinct: true)
+    else
+      @rooms = Room.where(area_id: @area)
+    end
   end
 
   # GET /areas/new
