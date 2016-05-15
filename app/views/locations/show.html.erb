@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @location.name %>
+</p>
+
+<p>
+  <strong>Currency:</strong>
+  <%= @location.currency %>
+</p>
+
+<p>
+  <strong>Currency symbol:</strong>
+  <%= @location.currency_symbol %>
+</p>
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>

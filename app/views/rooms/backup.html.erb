@@ -1,0 +1,38 @@
+
+
+
+          <label>Arrival</label>
+          <% if @bookings.present? %>
+            <select name="arrival" id="arrival" class="form-input marBot-15 noBor select-fix">
+              <option value="">Select time</option>
+                <%= Room::TIME_SELECT.each do |ts| %>
+                  <% @bookings.each do |booking| %>
+                    <% if ts.between?(booking.check_in_time, booking.check_out_time) %>
+                      <option disabled="disabled" value="<%= ts %>"><%= ts %></option>
+                    <% else %>
+                      <option value="<%= ts %>"><%= ts %></option>
+                    <% end %>
+                  <% end %>
+                <% end %>
+            </select>
+          <% else %>
+            <%= select_tag :arrival, options_for_select(Room::TIME_SELECT), prompt: "Select time", class: "form-input marBot-15 noBor select-fix" %>
+          <% end %>
+
+          <label>Arrival</label>
+          <% if @bookings.present? %>
+
+            <% @result = [] %>
+            
+                <%= Room::TIME_SELECT.each do |ts| %>
+                  <% @bookings.each do |booking| %>
+                    <% if ts.between?(booking.check_in_time, booking.check_out_time) %>
+                      @result << ts
+                    <% end %>
+                  <% end %>
+                <% end %>
+            
+            <% @result %>
+          <% else %>
+            <%= select_tag :arrival, options_for_select(Room::TIME_SELECT), prompt: "Select time", class: "form-input marBot-15 noBor select-fix" %>
+          <% end %>

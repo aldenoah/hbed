@@ -35,8 +35,13 @@ gem 'bootstrap-datepicker-rails'
 gem 'coffee-script-source', '1.8.0'
 gem 'braintree'
 gem 'gon'
-gem 'momentjs-rails'
-gem 'fullcalendar-rails'
+gem "simple_calendar", "~> 2.0"
+gem 'chronic', '~> 0.10.2'
+gem 'date_time_attribute', '~> 0.1.2'
+gem 'twilio-ruby', '~> 4.9'
+gem 'money-rails'
+gem 'monetize'
+gem 'google_currency', '~> 3.2'
 
 group :production do
 	gem 'rails_12factor'
@@ -45,6 +50,7 @@ end
 group :development, :test do
 	gem 'bullet'
 	gem "better_errors"
+	gem "binding_of_caller"
 end
 
 gem 'sdoc', '~> 0.4.0',          group: :doc

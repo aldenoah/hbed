@@ -1,15 +1,42 @@
-@media only screen and (max-width : 320px) {
+@media only screen and (max-width : 410px) {
    .desktop-visible {
        visibility: hidden;
        display: none;
-   };
+   }
 
    .mobile-visible {
        visibility: visible;
        display: block;
-   };
+   }
 
-   #home-hero-container {
+   .padRight-2 {
+    padding-bottom: 7px;
+  }
+
+  .botTag {
+    font-size: 14px;
+  }
+
+  .input-lg {
+    font-size: 13px;
+  }
+
+  .copyRights {
+    font-size: 9px;
+  }
+
+
+
+
+
+
+
+  .navbar-default .navbar-collapse {
+     border: none;
+     margin-top: 3px;
+   }
+
+  #home-hero-container {
       background-image: url('bg.jpg');
       -webkit-background-size: cover;
       -moz-background-size: cover;
@@ -20,12 +47,13 @@
       background-color: #3c3431;
       padding: 0px;
       margin: 0;
-      height: 480px;
+      height: 390px;
+      width: 100%;
   }
 
-   .home-hero {
+  .home-hero {
     text-align: center;
-    padding: 80px 0;
+    padding: 40px 0;
     h2 {
       font-size: 25px;
     }
@@ -39,11 +67,12 @@
       text-shadow: 1px 1px 2px #331f04;
     }
     .hero-subtext {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
       margin: auto;
       color: #FFF;
       margin-bottom: 20px;
+      padding: 0 20px;
       text-shadow: 1px 1px 1px #331f04;
     }
   }
@@ -73,7 +102,7 @@
         }
     }
 
-    .form-input {
+  .form-input {
       width: 100%;
       padding: 12px 7px;
       font-size: 13px;

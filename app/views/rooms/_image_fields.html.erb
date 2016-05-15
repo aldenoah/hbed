@@ -1,0 +1,27 @@
+<div class="nested-fields">
+  <div class="col-md-4">
+      <div class="upload-preview-<%= f.object.to_s.parameterize %>">
+        <label for="photo-input-<%= f.object.to_s.parameterize %>" class="cursor-on">
+        <%= image_tag f.object.image.url, class: "secondary-img"%>
+        </label>
+      </div>   
+      <%= f.input :image, label: false, input_html: {id: "photo-input-#{f.object.to_s.parameterize}", class: "file-#{f.object.to_s.parameterize} invisible"} %>
+  </div>
+</div>
+  
+<script>
+$(document).ready(function(){
+    var preview = $(".upload-preview-<%= f.object.to_s.parameterize %> img");
+
+    $(".file-<%= f.object.to_s.parameterize %>").change(function(event){
+       var input = $(event.currentTarget);
+       var file = input[0].files[0];
+       var reader = new FileReader();
+       reader.onload = function(e){
+           image_base64 = e.target.result;
+           preview.attr("src", image_base64);
+       };
+       reader.readAsDataURL(file);
+    });
+});
+</script>

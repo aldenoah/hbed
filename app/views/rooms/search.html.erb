@@ -1,48 +1,164 @@
-<%= render 'layouts/header' %>
-
+<% title 'Search' %>
+<% noindex %>
+<%= render 'layouts/header_full' %>
 <div class="container-full">
 <div class="row">
   <div class="col-md-3 zeroRight desktop-visible">
     <div class="filterbar">
-      REFINE YOUR SEARCH HERE<span class="glyphicon glyphicon-chevron-down glyphRight" aria-hidden="true"></span> 
+      REFINE YOUR SEARCH<span class="glyphicon glyphicon-chevron-down glyphRight" aria-hidden="true"></span> 
     </div>
   </div>
   <div class="col-md-9 zeroLeft">
     <div class="infobar">
-      Showing 1 - 1 of 1 results for Kota Kinabalu
+      Showing Rooms for <%= @area.name %>
     </div>
   </div>
 </div>
-
 <div class="row">
   <div class="col-md-3 zeroRight desktop-visible">
     <div class="sidebar">
-      Testing
+      <%= form_tag search_refined_rooms_path, method: :post do %>
+      <div style="padding: 15px;">
+          <%= select_tag :area, options_for_select(@areas.collect {|u| [ u.name, u.id ] }, params[:area]), include_blank: false, class: "form-control marBot-10" %>
+        <div class="row">
+          <div class="col-md-6 padRight-5">
+            <%= text_field_tag :start_date, params[:start_date], placeholder: 'Select date', autocomplete: 'off', readonly: true, class: "form-control marBot-10 datepicker1" %>
+          </div>
+          <div class="col-md-6 padLeft-5">
+            <%= select_tag :duration, options_for_select(Area::DURATION_SELECT, params[:duration]), include_blank: false, class: "form-control marBot-10" %>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+        <%= select_tag :district, options_for_select(Room.district(params[:area]), params[:district]), prompt: "Any location", class: "form-control marBot-10" %>
+        </div>
+        <div class="form-group">
+          <p style="margin-top: 20px;"><%= @area.location.currency_symbol %> <span id="lower-value"></span>         <span style="float:right"><%= @area.location.currency_symbol %> <span id="upper-value"></span></span></p>
+          <div id="slider"></div>
+        </div>
+        <br>
+        <div class="filter-bar">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="checkbox checkbox-success">
+              <%= check_box_tag :free_wifi, params[:free_wifi], params[:free_wifi] %>
+              <label>Free Wifi</label>
+            </div>
+            <div class="checkbox checkbox-success">
+              <%= check_box_tag :outdoor_pool, params[:outdoor_pool], params[:outdoor_pool] %>
+              <label>Swimming Pool</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="checkbox checkbox-success">
+              <%= check_box_tag :free_parking, params[:free_parking], params[:free_parking] %>
+              <label>Parking Facilities</label>
+            </div>
+          </div>
+        </div>
+        </div>
+        <br>
+        <%= hidden_field_tag :min_price, params[:min_price], id: "min_price" %>
+        <%= hidden_field_tag :max_price, params[:max_price], id: "max_price" %>
+        <%= button_tag "Update Search", data: {disable_with: "WAIT..."}, class: "btn btn-lg btn-danger full-width" %>
+      </div>
+      <br>
+      <% end %>
     </div>
   </div>
-
   <div class="col-md-9">
     <div class="roomWrapper">
     <div class="row">
       <% @rooms.each do |room| %>
-      <div class="col-md-6">
-      <%= link_to room_path(room) do %>
-        <div class="room-wrapper">
-          <%= image_tag('bg.jpg') %>
-
-          <div class="room-description">
-            <div class="listing-price">
-              <span class="ribbon ribbon-pale-green">MYR 50.00 <sub>/ 3 hours</sub></span> 
+      <% if room.room_rates(params[:duration]).between?(params[:min_price].to_money, params[:max_price].to_money) ## && (room.available?(params[:start_date], params[:duration]) == true) %>
+        <div class="col-md-6">
+          <div class="room-wrapper">
+            <%= link_to room_path(room, start_date: params[:start_date], duration: params[:duration]) do %>
+            <%= image_tag room.cover.url %>
+            <% end %>
+            <div class="room-description">
+              <div class="listing-price">
+                <span class="ribbon ribbon-pale-green" href="#" data-toggle="tooltip" data-placement="top" title="<%= room.room_rates(params[:duration]).exchange_to(current_user.currency).format(symbol_before_without_space: false) if user_signed_in? && (current_user.currency != room.price_per_three_hour_currency) %>">
+                  <%= room.room_rates(params[:duration]).format(symbol_before_without_space: false) %> <sub>for <%= params[:duration] %> hours</sub>
+                </span>
+              </div>
+              <h1><%= room.title %></h1>
+              <p><small><%= "#{room.district}, #{room.area.name}, #{room.area.location.name}" %></small></p>            
             </div>
-            <h1><%= room.name %> Double Room</h1>
-            <p>Beverly Hills, Kota Kinabalu
+          </div>
+        </div>
+      <% elsif room.room_rates(params[:duration]).between?(params[:min_price].to_money, params[:max_price].to_money) && room.booking_blank?(params[:start_date]) %>
+        <div class="col-md-6">
+          <div class="room-wrapper">
+            <%= link_to room_path(room, start_date: params[:start_date], duration: params[:duration]) do %>
+            <%= image_tag room.cover.url %>
+            <% end %>
+            <div class="room-description">
+              <div class="listing-price">
+                <span class="ribbon ribbon-pale-green" href="#" data-toggle="tooltip" data-placement="top" title="<%= room.room_rates(params[:duration]).exchange_to(current_user.currency).format(symbol_before_without_space: false) if user_signed_in? && (current_user.currency != room.price_per_three_hour_currency) %>">
+                  <%= room.room_rates(params[:duration]).format(symbol_before_without_space: false) %> <sub>for <%= params[:duration] %> hours</sub>
+                </span> 
+              </div>
+              <h1><%= room.title %></h1>
+              <p><small><%= "#{room.district}, #{room.area.name}, #{room.area.location.name}" %></small></p>
+            </div>
           </div>
         </div>
       <% end %>
-      </div>
       <% end %>
     </div>
   </div>
   </div>
 </div>
 </div>
+<script>
+  $(document).ready(function(){
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+    $('.datepicker1').datepicker({
+      format: 'yyyy-mm-dd',
+      startDate: "+0d",
+      endDate: "+90d",
+      orientation: "left bottom",
+      /* datesDisabled: ["2015-11-07","2015-11-10"], */
+      /* daysOfWeekDisabled: "06", */
+      /* daysOfWeekDisabled: "12345", */
+      weekStart: "1",
+      autoclose: true,
+      /* datesDisabled: gon.unavailable_dates */
+    });
+    var slider = document.getElementById('slider');
+
+    noUiSlider.create(slider, {
+      start: [<%= params[:min_price] %>, <%= params[:max_price] %>],
+      step: 5,
+      connect: true,
+      range: {
+        'min': 0,
+        'max': 300,
+      }
+    });
+    function leftValue ( handle ) {
+      return handle.parentElement.style.left;
+    }
+
+    var lowerValue = document.getElementById('lower-value'),
+      upperValue = document.getElementById('upper-value'),
+      handles = slider.getElementsByClassName('noUi-handle');
+
+    // Display the slider value and how far the handle moved
+    // from the left edge of the slider.
+    slider.noUiSlider.on('update', function ( values, handle ) {
+      if ( !handle ) {
+        lowerValue.innerHTML = values[handle];
+        $('#min_price').val(lowerValue.innerHTML);
+      } else {
+        upperValue.innerHTML = values[handle];
+        $('#max_price').val(upperValue.innerHTML);
+      }
+    });
+  });
+</script>
+
+

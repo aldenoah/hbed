@@ -1,0 +1,68 @@
+<% title 'Admin - Bookings' %>
+<% noindex %>
+<%= render 'layouts/header' %>
+
+<div class="subnav">
+  <ul class="subnav-list">
+    <div class="container">
+      <li><%= link_to "Bank Transfers", pending_transfers_path, class: "subnav-item zeroLeft" %></li>
+      <li><%= link_to "Bookings", bookings_path, class: "subnav-item active" %></li>
+      <li><%= link_to "Listings", rooms_path, class: "subnav-item" %></li>
+      <li><%= link_to "Images", uploads_path, class: "subnav-item" %></li>
+      <li><%= link_to "Users", users_path, class: "subnav-item" %></li>
+      <li><%= link_to "Areas", areas_path, class: "subnav-item" %></li>
+      <li><%= link_to "Countries", locations_path, class: "subnav-item" %></li>
+    </div>
+  </ul>
+</div>
+
+<div class="container">
+<div class="table-responsive">
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Check In</th>
+      <th>Room</th>
+      <th>Customer</th>
+      <th>Total</th>
+      <th>Pay Seller</th>
+      <th>Paid Us</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bookings.each do |booking| %>
+      <tr>
+        <td><%= link_to booking.id, booking %></td>
+        <td>
+          <%= "#{booking.check_in.strftime("%b %d, %Y - %l:%M %p")}" %>
+          <p><small><%= "#{booking.guest} guest for #{booking.duration} hour" %></small></p>
+          <%= "#{booking.check_out.strftime("%b %d, %Y - %l:%M %p")}" %>
+          <span class="label label-info"><%= booking.status %></span>
+        </td>
+        <td>
+          <%= link_to booking.room_title, room_path(id: booking.room_id, start_date: Date.today, duration: 3) %>
+          <p><small><%= booking.room_name %></small></p>
+          <p><%= "seller_id: #{booking.seller_id}" %></p>
+        </td>
+        <td>
+          <%= booking.first_name %> <%= booking.last_name %>
+          <p><small><b><%= booking.booking_code %></b></small></p>
+          <p><%= "buyer_id: #{booking.buyer_id}" %></p>
+        </td>
+        <td><%= booking.total.format(symbol_before_without_space: false) %></td>
+        <td><%= booking.subtotal.format(symbol_before_without_space: false) %></td>
+        <td>
+          <b><%= booking.service_fee.format(symbol_before_without_space: false) %></b>
+          <p><small><%= booking.payment_method %></small></p>
+        </td>
+        <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
+        <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>

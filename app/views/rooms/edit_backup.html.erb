@@ -1,0 +1,231 @@
+<%= render 'layouts/header' %>
+
+<div class="top-section-alt">
+  <div class="container">
+    <h1><%= @room.name %></h1>
+    <small><%= link_to "Back to rooms", listings_path %></small>
+  </div>
+</div>
+
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+  <div role="tabpanel">
+	<ul class="nav nav-pills nav-stacked" role="tablist" id="roomTab">
+    <li role="presentation">
+      <a href="#myCalendar" aria-controls="myCalendar" role="tab" data-toggle="pill">Calendar</a>
+    </li>
+	  <li role="presentation">
+	    <a href="#myRoom" aria-controls="myRoom" role="tab" data-toggle="pill">My Room</a>
+	  </li>
+	  <li role="presentation">
+	    <a href="#myPrice" aria-controls="myPrice" role="tab" data-toggle="pill">Price</a>
+	  </li>
+	  <li role="presentation">
+	    <a href="#myPhoto" aria-controls="myPhoto" role="tab" data-toggle="pill">Photos</a>
+	  </li>
+	  <li role="presentation">
+	    <a href="#myAddress" aria-controls="myAddress" role="tab" data-toggle="pill" id="address_tab">Address</a>
+	  </li>
+	</ul>
+  </div>
+  <br>
+</div>
+<div class="col-md-6">
+  <div class="tab-content">
+  <div role="tabpanel" class="tab-pane" id="myCalendar">
+    <%= week_calendar events: @bookings do |day| %>
+      <% start = day.beginning_of_day %>
+      <% ending = day.end_of_day %>
+      <div class="date-row">
+        <%= start.strftime("%e") %>
+      </div>
+      <% while start < ending do %>
+        <div class="day-hour">
+          <p><%= (start + 1.hour).strftime("%l:%M %P") if start.strftime("%a") == 'Mon' %></p>
+
+          <% @bookings.each do |booking| %>
+            <% if start.between?(booking.check_in_date, booking.check_out - 1.second) %>
+              <div class="occupied"></div>
+            <% end %>
+          <% end %>
+        </div>    
+        <% start += 1.hour %>
+      <% end %>
+    <% end %>
+  </div>
+	<div role="tabpanel" class="tab-pane" id="myRoom">
+      <%= simple_form_for(@room) do |f| %>
+        <%= f.error_notification %>
+          <%= f.input :name, label: "Title", placeholder: "Give your event a descriptive title", input_html: {class: "form-control marBot-10"} %>
+          <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Fact:</b> descriptive titles get booked five times more often than “John’s Hotel”.</small>
+        <hr>
+        <%= f.input :description, label: "Desription", placeholder: "Tell the guests a little more about your listing.", input_html: {rows: 10, class: "form-control marBot-10"} %>
+        <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Fact:</b> the more detailed the desription is, the more likely your room will get booked.</small>
+        <hr>
+        <%= f.button :submit, "Save", class: "btn btn-lg btn-primary" %>
+
+      <% end %>
+	</div>
+	<div role="tabpanel" class="tab-pane" id="myPrice">
+      <%= simple_form_for(@room) do |f| %>
+        <%= f.error_notification %>
+        <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small>We recommend to set not more than 15 USD at the beginning, later you can raise your price!</small>
+        <hr>
+
+        <div class="form-group">
+          <%= f.input :price_per_three_hour, label: "Price for first 3 hours", input_html: {class: "form-control"} %>
+          <%= f.input :price_per_three_hour_currency, as: :hidden, input_html: {value: "MYR"} %>
+        </div>
+        <div class="form-group">
+          <%= f.input :price_per_extra_hour, label: "Price per extra hour", input_html: {class: "form-control"} %>
+          <%= f.input :price_per_extra_hour_currency, as: :hidden, input_html: {value: "MYR"} %>
+        </div>
+        <div class="form-group">
+          <%= f.input :price_per_extra_guest, label: "Price per extra guest", input_html: {class: "form-control"} %>
+          <%= f.input :price_per_extra_guest_currency, as: :hidden, input_html: {value: "MYR"} %>
+        </div>
+        <div class="form-group">
+          <%= f.input :deposit, label: "Deposit", input_html: {class: "form-control"} %>
+          <%= f.input :deposit_currency, as: :hidden, input_html: {value: "MYR"} %>
+        </div>
+        <div class="checkbox checkbox-success">
+          <%= f.check_box :free_wifi %>
+          <label>Free Wifi</label>
+        </div>
+
+        <div class="checkbox checkbox-success">
+          <%= f.check_box :outdoor_pool %>
+          <label>Swimming Pool</label>
+        </div>
+
+        <div class="checkbox checkbox-success">
+          <%= f.check_box :free_parking %>
+          <label>Parking Facilities</label>
+        </div>
+
+        
+
+
+        <hr>
+        <%= f.button :submit, "Save", class: "btn btn-lg btn-primary text-right" %>
+
+      <% end %>
+	</div>
+  <div role="tabpanel" class="tab-pane" id="myPhoto">
+    <%= simple_form_for(@upload, html: {multipart: true, id: "new_upload", class: "dropzone"}) do |f| %>
+      <%= f.error_notification %>
+      <%= f.input :room_id, as: :hidden, input_html: {value: @room.id} %>
+
+      <div class="fallback">
+        <%= f.input :image %>
+        <%= f.button :submit %>
+      </div>
+
+    <% end %>
+	</div>
+  <div role="tabpanel" class="tab-pane" id="myAddress">
+	  <%= simple_form_for(@room) do |f| %>
+	    <%= f.error_notification %>
+      <div class="form-group">
+	      <%= f.association :area, label: "City / Area", inlcude_blank: false, input_html: {class: "form-control"} %>
+      </div>
+      <div class="form-group">
+        <%= f.input :district, label: "District", input_html: {class: "form-control"} %>
+      </div>
+      <div class="form-group">
+        <%= f.input :location, label: "Find your exact location", placeholder: "Start by typing and selecting the location nearest to you", input_html: {id: "kc-location", class: "form-control"} %>
+      </div>
+      <div id="kc-map" style="width: 100%; height: 300px; margin-bottom: 10px;"></div>
+      <%= image_tag 'lock.png', class: "icon-sm" %> <small>Your exact location is private and only shared with guests after a reservation is confirmed by you.</small>
+        <hr>
+	      
+      <div class="form-group">
+        <%= f.input :direction, input_html: {rows: 5, class: "form-control"} %>
+      </div>
+
+        <%= image_tag 'lock.png', class: "icon-sm" %> <small>Only guests whom you confirm can see this. Give the instructions how to reach your place by public transport/what to mention to taxi driver.</small>
+        <hr>
+	      
+      <%= f.input :latitude, as: :hidden, input_html: {id: "kc-lat",class: "form-control"} %>
+      <%= f.input :longitude, as: :hidden, input_html: {id: "kc-lon",class: "form-control"} %>
+
+	    <%= f.button :submit, "Save", class: "btn btn-lg btn-primary" %>
+	  <% end %>
+	</div>
+  </div>
+</div>
+<div class="col-md-3">
+
+</div>
+</div>
+</div>
+
+<script>
+  $(function () {
+    $('#roomTab a:first').tab('show')
+  })
+</script>
+
+<script type="text/javascript">
+$('#address_tab').on('click',function(){
+/* $(document).ready(function(){ */
+  $('#kc-map').locationpicker({
+  <% if @room.latitude.present? %>
+  location: {latitude: <%= @room.latitude %>, longitude: <%= @room.longitude %>},
+  <% else %>
+  location: {latitude: 0, longitude: 0},
+  <% end %>
+  radius: 0,
+  inputBinding: {
+        latitudeInput: $('#kc-lat'),
+        longitudeInput: $('#kc-lon'),
+        locationNameInput: $('#kc-location')
+    },
+    enableAutocomplete: true,
+  });
+});
+/* }); */
+</script>
+
+<script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+
+<script>
+$(document).ready(function(){
+  // disable auto discover
+  Dropzone.autoDiscover = false;
+
+  // grap our upload form by its id
+  $("#new_upload").dropzone({
+    // restrict image size to a maximum 1MB
+    maxFilesize: 1,
+    // changed the passed param to one accepted by
+    // our rails app
+    paramName: "upload[image]",
+    // show remove links on each image upload
+    addRemoveLinks: true,
+    // if the upload was successful
+    success: function(file, response){
+      // find the remove button link of the uploaded file and give it an id
+      // based of the fileID response from the server
+      $(file.previewTemplate).find('.dz-remove').attr('id', response.fileID);
+      // add the dz-success class (the green tick sign)
+      $(file.previewElement).addClass("dz-success");
+    },
+    //when the remove button is clicked
+    removedfile: function(file){
+      // grap the id of the uploaded file we set earlier
+      var id = $(file.previewTemplate).find('.dz-remove').attr('id'); 
+
+      // make a DELETE ajax request to delete the file
+      $.ajax({
+        type: 'DELETE',
+        url: '/uploads/' + id,
+        success: function(data){
+          console.log(data.message);
+        }
+      });
+    }
+  }); 
+});
+</script>

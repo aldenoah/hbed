@@ -10,10 +10,11 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require fullcalendar
+ *= require dropzone
  *= require_tree .
  *= require_self
  */
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-datepicker";
@@ -22,6 +23,19 @@
 @import "custom";
 @import "mobile";
 @import "datepicker";
+@import "braintree";
 @import "3gs";
-@import "4s5s";
-@import "66s";
+/* @import "4s5s";
+@import "66s"; */
+@import "awesome-bootstrap-checkbox";
+
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    cursor: auto;
+    background-color: #FFFFFF;
+    opacity: 1;
+}
+
+option:disabled {
+	color: #e3e3e3;
+}

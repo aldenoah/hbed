@@ -1,0 +1,197 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/"><b>HOUR</b>BEDS</a>
+    </div>
+  </div>
+</nav>
+
+<div class="top-section">
+  <div class="container">
+    <h1><b>BOOKING</b> <small>CONFIRMATION</small></h1>
+  </div>
+</div>
+<div class="container">
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="booking-form-wrapper">
+
+    <h1 class="line-behind"><span>Payment Details</span></h1>
+
+    <form action="/" id="my-sample-form">
+      
+
+      <div class="row">
+        <div class="col-md-8">
+          <label>Card Number</label>
+          <div id="card-number"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-4 pad-right-5">
+          <label>Expires on</label>       
+          <div id="expiration-date"></div>
+        </div>
+        <div class="col-xs-4 pad-left-5">
+          <label>CVV</label>
+          <div id="cvv"></div>
+        </div>
+      </div>
+      <%= image_tag 'lock.png', class: "icon-sm" %> <small>Your credit card information is encrypted via our secure payment system.</small>
+      
+
+      <!-- <input type="submit" value="Pay" /> -->
+    </form>
+    <br><br>
+    <h1 class="line-behind"><span>Contact Information</span></h1>
+
+    <%= simple_form_for(@booking) do |f| %>
+      <%= f.error_notification %>
+      <div clas="row">
+        <div class="col-md-6 zeroLeft">
+          <div class="form-group">
+            <%= f.input :buyer_first_name, label: "First Name", input_html: {class: "form-control"} %>
+          </div>
+        </div>
+        <div class="col-md-6 zeroRight">
+          <div class="form-group">
+            <%= f.input :buyer_last_name, label: "Last Name", input_html: {class: "form-control"} %>
+          </div>
+        </div>
+      </div>
+      <div clas="row">
+        <div class="col-md-6 zeroLeft">
+          <div class="form-group">
+            <%= f.input :buyer_email, label: "Email Address", input_html: {class: "form-control"} %>
+          </div>
+        </div>
+        <div class="col-md-6 zeroRight">
+          <div class="form-group">
+            <%= f.input :buyer_phone, label: "Mobile Phone No.", input_html: {class: "form-control"} %>
+          </div>
+        </div>
+      </div>
+      </div>
+      <p>By confirming your booking, you hereby agreed to our terms & conditions of use and our privacy policy.</p>
+
+      <%= f.button :submit, "Confirm Booking", class: "btn btn-lg btn-primary full-width" %>
+
+      <%= f.input :booking_agreement, as: :hidden, input_html: {value: true} %>
+      <%= f.input :seller_id, as: :hidden, input_html: {value: @room.user_id} %>
+      <%= f.input :buyer_id, as: :hidden, input_html: {value: current_user.id} if user_signed_in? %>
+      <%= f.input :room_name, as: :hidden, input_html: {value: @room.name} %>
+
+      <%= f.input :start_date, as: :hidden, input_html: {value: @start_date} %>
+      <%= f.input :room_id, as: :hidden, input_html: {value: params[:id]} %>
+      <%= f.input :check_in, as: :hidden, input_html: {value: @check_in} %>
+      <%= f.input :check_out, as: :hidden, input_html: {value: @check_out} %>
+      <%= f.input :duration, as: :hidden, input_html: {value: @duration} %>
+      <%= f.input :subtotal, as: :hidden, input_html: {value: @pay_later} %>
+      <%= f.input :service_fee, as: :hidden, input_html: {value: @pay_now} %>
+      <%= f.input :total, as: :hidden, input_html: {value: @total} %>
+
+
+
+
+    <% end %>
+  </div>
+  <div class="col-md-4">
+    <%= image_tag('bg.jpg') %>
+    <div class="sidebar-wrapper">
+    <h4><%= @room.name %></h4>
+    <p><%= "#{@room.district}, #{@room.area.name}" %></p>
+    <hr>
+    <p><b>Check in:</b> <%= @check_in.strftime("%b %d, %Y - %l:%M %p") %></p>
+    <p><b>Check out:</b> <%= @check_out.strftime("%b %d, %Y - %l:%M %p") %></p>
+    <p><b>Guest:</b> <%= "#{@guest} guest" %></p>
+    <hr>
+    <table>
+      <tbody>
+        <tr>
+          <td><p><b>Pay Now:</b></p></td>
+          <td class="text-right"><%= "MYR #{number_with_precision(@pay_now, precision: 2)}" %></td>
+        </tr>
+        <tr>
+          <td><b>Pay on Arrival:</b></td>
+          <td class="text-right"><%= "MYR #{number_with_precision(@pay_later, precision: 2)}" %></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="final-price">
+      <table>
+        <tbody>
+          <tr>
+            <td><h4>Total Price</h4></td>
+            <td class="text-right"><h4><%= "MYR #{number_with_precision(@total, precision: 2)}" %></h4></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<script src='https://js.braintreegateway.com/v2/braintree.js'></script>
+<script>
+  braintree.setup(
+    '<%=@client_token%>', 
+    'dropin', {
+      container: 'dropin-container'
+    });
+</script> 
+
+<script>
+      braintree.setup("<%=@client_token%>", "custom", {
+        id: "my-sample-form",
+        hostedFields: {
+          styles: {
+              // Style all elements
+              "input": {
+                "font-size": "10pt",
+                "color": "#222",
+                "border": "1px solid #cecece",
+              },
+
+              // Styling a specific field
+              ".number": {
+                "font-family": "arial"
+              },
+
+              // Styling element state
+              ":focus": {
+                "color": "#222"
+              },
+              ".valid": {
+                "color": "green"
+              },
+              ".invalid": {
+                "color": "red"
+              },
+
+              // Media queries
+              // Note that these apply to the iframe, not the root window.
+              "@media screen and (max-width: 700px)": {
+                "input": {
+                  "font-size": "10pt"
+                }
+              }
+            },
+          number: {
+            selector: "#card-number",
+            placeholder: "Card Number"
+          },
+          cvv: {
+            selector: "#cvv",
+            placeholder: "CVV"
+          },
+          expirationDate: {
+            selector: "#expiration-date",
+            placeholder: "MM/YYYY"
+          }
+        }
+      });
+    </script>

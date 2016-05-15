@@ -1,0 +1,79 @@
+<% title 'Payment Instruction' %>
+<% noindex %>
+
+<nav class="navbar navbar-default" role="navigation" id="navbar-book">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/"><b>HOUR</b>BEDS</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+<div class="col-md-6 col-md-offset-3 zeroLeft zeroRight">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Payment Instruction</h3>
+    </div>
+    <div class="panel-body">
+      <p>
+        Thank you for booking with HourBeds, your booking is now partially confirmed and you are required to complete the following steps for us to fully confirm your reservation.
+      </p>
+      <hr>
+      <p>
+        <b>STEP 1</b>
+      </p>
+      <p>
+        Transfer <b><%= "RM #{number_with_precision(params[:transfer], precision: 2)}" %></b> to our <b>Maybank Account</b> with 
+        <%= link_to "Maybank2u", "http://www.maybank2u.com.my" %> or any Cash Deposit machine nearby.
+      </p>
+      <table class="table table-bordered">
+        <tbody>
+          <tr class="active">
+            <td>A/C NO.</td>
+            <td>110069012702</td>
+          </tr>
+          <tr>
+            <td>NAME</td> 
+            <td>PHIDIAS LO VUI LUN</td>
+          </tr>
+        </tbody>
+      </table>
+      <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Tip:</b> write your name and phone number in the reference section to help us identify your transfer.</small>
+      <hr>
+      <p>
+        <b>STEP 2</b>
+      </p>
+      <p>
+        Take a picture of your receipt (or any proof of payment) with your phone and send it to us by whatsapp or email.
+      </p>
+      <table class="table table-bordered">
+        <tbody>
+          <tr class="active">
+            <td>WHATSAPP NO.</td>
+            <td>+6013 881 0882</td>
+          </tr>
+          <tr>
+            <td>EMAIL</td> 
+            <td>PHIDIASLO@GMAIL.COM</td>
+          </tr>
+        </tbody>
+      </table>
+      <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Fact:</b> complete everything within 1 hour so your booking will not be cancelled.</small>
+      <hr>
+      <p>
+        <b>STEP 3</b>
+      </p>
+      <p>
+        Once we have confirmed your payment, you'll receive an SMS and email from us with your booking confirmation. Done :)
+      </p>
+      <p>
+        Thank you and have a nice stay!
+      </p>
+      <br>
+      <p><%= link_to "FOLLOW US ON FACEBOOK", "https://www.facebook.com/hourbeds", target: '_blank', class: "btn btn-lg btn-primary full-width" %></p>
+      <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Fact:</b> LIKE us to follow our news, events and special discounts.</small>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,5 +1,98 @@
-<h1>New Room</h1>
+<% title 'New Listing' %>
+<% noindex %>
 
-<%= render 'form' %>
+<nav class="navbar navbar-default" role="navigation" id="navbar-book">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/"><b>HOUR</b>BEDS</a>
+    </div>
+  </div>
+</nav>
+<div class="container">
+<div class="row">
+  <div class="col-md-3">
+	  <ul class="sidebar-steps">
+      <li class="active">
+        <b>Step 1</b>
+        <span class="float-right">Basic Info</span>
+      </li>
+      <li>
+        <b>Step 2</b>
+        <span class="float-right">About Listing</span>
+      </li>
+      <li>
+        <b>Step 3</b>
+        <span class="float-right">Tariff / Pricing</span>
+      </li>
+      <li>
+        <b>Step 4</b>
+        <span class="float-right">Photos</span>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+  <%= simple_form_for(@room) do |f| %>
+    <%= f.error_notification %>
+    <div class="form-group">
+      <%= f.input :name, required: true, label: "Give your room a name (or a number)", placeholder: "i.e: Room 101, Rafflesia, Sarah, etc.", input_html: {class: "form-control"} %>
+      <div class="marTop-10"><%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Tip:</b> only you can see this name.</small></div>
+    </div>
+    <hr>
+    <div class="form-group">
+      <%= f.association :area, required: true, label: "Where is your room located?", prompt: "Select location", input_html: {class: "form-control"} %>
+      <div class="marTop-10"><%= image_tag 'lock.png', class: "icon-sm" %> <small><b>Warning:</b> your selected location can not be changed afterwards. Make sure it is correct.</small></div>
+    </div>
+    <div class="form-group">
+      <%= f.input :district, required: true, label: "Neighborhood / District", placeholder: "i.e: Damai, Bundusan, Beverly Hills, etc.", input_html: {class: "form-control"} %>
+      <div class="marTop-10"><%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Tip:</b> use neighborhood names which your locals can easily identify.</small></div>
+    </div>
+    <br>
+    <div class="form-group">
+      <%= f.input :location, required: true, label: "Find your exact location", placeholder: "Start by typing and selecting the location nearest to you", input_html: {id: "kc-location", class: "form-control"} %>
+    </div>
+    <div class="form-group">
+    <div id="kc-map" style="width: 100%; height: 300px; margin-bottom: 10px;"></div>
+      <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Tip:</b> Once selected, drag the marker to your exact location.</small>
+    </div>
+    <!--
+    <div class="form-group">
+      <%= f.input :direction, required: true, input_html: {rows: 5, class: "form-control"} %>
+    </div>
+      <%= image_tag 'lock.png', class: "icon-sm" %> <small>Only guests whom made a booking can see this. Provide instructions on how to reach your premise by public transport/what to mention to taxi driver.</small>
+    -->
+     <hr>
+      
+    <%= f.input :latitude, as: :hidden, input_html: {id: "kc-lat",class: "form-control"} %>
+    <%= f.input :longitude, as: :hidden, input_html: {id: "kc-lon",class: "form-control"} %> 
+    <%= f.input :active, as: :hidden, input_html: {value: false} %>
+     
 
-<%= link_to 'Back', rooms_path %>
+    <div class="form-group">
+      <%= f.button :submit, "Save & Proceed", class: "btn-lg btn-primary" %>
+    </div>
+  <% end %>
+  </div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#kc-map').locationpicker({
+  <% if @room.latitude.present? %>
+  location: {latitude: <%= @room.latitude %>, longitude: <%= @room.longitude %>},
+  <% else %>
+  location: {latitude: 0, longitude: 0},
+  <% end %>
+  radius: 0,
+  inputBinding: {
+        latitudeInput: $('#kc-lat'),
+        longitudeInput: $('#kc-lon'),
+        locationNameInput: $('#kc-location')
+    },
+    enableAutocomplete: true,
+  });
+});
+</script>
+
+<script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>

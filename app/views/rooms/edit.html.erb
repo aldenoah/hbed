@@ -1,6 +1,261 @@
-<h1>Editing Room</h1>
+<%= render 'layouts/header' %>
 
-<%= render 'form' %>
+<div class="top-section-alt">
+  <div class="container">
+    <h1><%= "Editting #{@room.name}" %></h1>
+    <small><%= link_to "Back to Active Listings", listings_path %></small>
+  </div>
+</div>
 
-<%= link_to 'Show', @room %> |
-<%= link_to 'Back', rooms_path %>
+<div class="container">
+<div class="row">
+  <div class="col-md-2">
+    <div role="tabpanel">
+      <ul class="nav nav-pills nav-stacked" role="tablist" id="roomTab">
+        <li role="presentation">
+          <a href="#myRoom" aria-controls="myRoom" role="tab" data-toggle="pill">Room</a>
+        </li>
+        <li role="presentation">
+          <a href="#myPrice" aria-controls="myPrice" role="tab" data-toggle="pill">Price</a>
+        </li>
+        <li role="presentation">
+          <a href="#myPhoto" aria-controls="myPhoto" role="tab" data-toggle="pill">Photos</a>
+        </li>
+        <li role="presentation">
+          <a href="#myAddress" aria-controls="myAddress" role="tab" data-toggle="pill" id="address_tab">Address</a>
+        </li>
+      </ul>
+    </div>
+    <br>
+  </div>
+  <div class="col-md-10">
+    <div class="tab-content">
+
+      <div role="tabpanel" class="tab-pane" id="myRoom">
+        <div class="col-md-8">
+          <%= simple_form_for(@room) do |f| %>
+            <%= f.error_notification %>
+              <div class="form-group">
+                <%= f.input :name, label: "Room Name (or number)", placeholder: "Give your room a name that you can easily identify", input_html: {class: "form-control marBot-10"} %>
+                <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Tip:</b> only you can see this name.</small>
+              </div>
+              <hr>
+              <div class="form-group">
+                <%= f.input :title, label: "Title", placeholder: "Give your room a descriptive title", input_html: {class: "form-control marBot-10"} %>
+                <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Fact:</b> descriptive titles get booked five times more often than “John’s Hotel”.</small>
+              </div>
+            <br>
+            <%= f.input :description, label: "Desription", placeholder: "Tell the guests a little more about your listing.", input_html: {rows: 6, class: "form-control marBot-10"} %>
+            <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Fact:</b> the more detailed the desription is, the more likely your room will get booked.</small>
+            <hr>
+            <%= f.button :submit, "Save", class: "btn btn-lg btn-primary" %>
+
+          <% end %>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="myPrice">
+        <div class="col-md-8">
+          <%= simple_form_for(@room) do |f| %>
+            <%= f.error_notification %>
+
+            <div class="form-group">
+              <%= f.input :price_per_three_hour_currency, as: :hidden, input_html: {value: @room.area.location.currency} %>
+              <%= f.input :price_per_three_hour, label: "Price for first 3 hour", wrapper: :vertical_input_group do %>
+                <span class="input-group-addon"><%= @room.area.location.currency %></span>
+                <%= f.input_field :price_per_three_hour, class: "form-control marBot-10" %>
+              <% end %>
+            </div>
+            <div class="form-group">
+              <%= f.input :price_per_extra_hour_currency, as: :hidden, input_html: {value: @room.area.location.currency} %>
+              <%= f.input :price_per_extra_hour, label: "Price per additional hour", wrapper: :vertical_input_group do %>
+                <span class="input-group-addon"><%= @room.area.location.currency %></span>
+                <%= f.input_field :price_per_extra_hour, class: "form-control marBot-10" %>
+              <% end %>
+            </div>
+            <div class="form-group">
+              <%= f.input :price_per_extra_guest_currency, as: :hidden, input_html: {value: @room.area.location.currency} %>
+              <%= f.input :price_per_extra_guest, label: "Price for each 3rd guest and above", wrapper: :vertical_input_group do %>
+                <span class="input-group-addon"><%= @room.area.location.currency %></span>
+                <%= f.input_field :price_per_extra_guest, class: "form-control marBot-10" %>
+              <% end %>
+            </div>
+            <div class="form-group">
+              <%= f.input :deposit_currency, as: :hidden, input_html: {value: @room.area.location.currency} %>
+              <%= f.input :deposit, label: "Refundable Deposit", wrapper: :vertical_input_group do %>
+                <span class="input-group-addon"><%= @room.area.location.currency %></span>
+                <%= f.input_field :deposit, class: "form-control marBot-10" %>
+              <% end %>
+            </div>       
+
+            <div class="checkbox checkbox-success">
+              <%= f.check_box :free_wifi %>
+              <label>Free Wifi</label>
+            </div>
+
+            <div class="checkbox checkbox-success">
+              <%= f.check_box :outdoor_pool %>
+              <label>Swimming Pool</label>
+            </div>
+
+            <div class="checkbox checkbox-success">
+              <%= f.check_box :free_parking %>
+              <label>Parking Facilities</label>
+            </div>
+            <hr>
+            <%= f.button :submit, "Save", class: "btn btn-lg btn-primary text-right" %>
+          <% end %>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="myPhoto">
+      <%= simple_form_for(@room, :html => { :multipart => true }) do |f| %>
+        <%= f.error_notification %>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="cover-preview">
+              <label for="cover-input" class="cursor-on">
+                <%= image_tag @room.cover.url, class: "primary-img" %>
+              </label>
+              <%= f.input :cover, label: false, input_html: {id: "cover-input", class: "cover-file hidden"} %>
+            </div>
+          </div>
+          <div class="col-md-7">
+            
+            <div class="form-group">
+              <div class="row">
+              <%= f.simple_fields_for :uploads do |builder| %>
+                <%= render 'image_fields', f: builder %> 
+              <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+          <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Fact:</b> a picture speaks a thousand words. Upload your best photos to get more bookings.</small>
+        <hr>
+        <%= f.button :submit, "Save", class: "btn btn-lg btn-primary" %>
+        <% end %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="myAddress">
+        <div class="col-md-8">
+          <%= simple_form_for(@room) do |f| %>
+            <%= f.error_notification %>
+            <div class="form-group">
+              <%= f.association :area, label: "City / Area", prompt: "Select city/area", disabled: true, input_html: {class: "form-control"} %>
+            </div>
+            <div class="form-group">
+              <%= f.input :district, label: "District", input_html: {class: "form-control"} %>
+            </div>
+            <div class="form-group">
+              <%= f.input :location, label: "Find your exact location", placeholder: "Start by typing and selecting the location nearest to you", input_html: {id: "kc-location", class: "form-control"} %>
+            </div>
+            <div id="kc-map" style="width: 100%; height: 300px; margin-bottom: 10px;"></div>
+            <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Tip:</b> Drag the marker to your exact location.</small>
+
+              
+              <hr>
+              
+            <%= f.input :latitude, as: :hidden, input_html: {id: "kc-lat",class: "form-control"} %>
+            <%= f.input :longitude, as: :hidden, input_html: {id: "kc-lon",class: "form-control"} %>
+
+            <%= f.button :submit, "Save", class: "btn btn-lg btn-primary" %>
+          <% end %>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#select_date').change(function() {
+      $.ajax({
+        url: "<%= block_timeslots_path %>",
+        data: {
+          start_date : $('#select_date').val(),
+          id : <%= @room.id %>
+        },
+        dataType: "script"
+      });
+    });
+  });
+</script>
+
+<script>
+  $(function () {
+    $('#roomTab a:first').tab('show')
+  })
+</script>
+
+<script>
+  $(document).ready(function(){
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('.datepicker1').datepicker({
+      format: 'yyyy-mm-dd',
+      startDate: "+0d",
+      endDate: "+90d",
+      orientation: "left bottom",
+      /* datesDisabled: ["2015-11-07","2015-11-10"], */
+      /* daysOfWeekDisabled: "06", */
+      /* daysOfWeekDisabled: "12345", */
+      weekStart: "1",
+      autoclose: true,
+      /* datesDisabled: gon.unavailable_dates */
+    });
+  });
+</script>
+
+<script type="text/javascript">
+$('#address_tab').on('click',function(){
+/* $(document).ready(function(){ */
+  $('#kc-map').locationpicker({
+  <% if @room.latitude.present? %>
+  location: {latitude: <%= @room.latitude %>, longitude: <%= @room.longitude %>},
+  <% else %>
+  location: {latitude: 0, longitude: 0},
+  <% end %>
+  radius: 0,
+  inputBinding: {
+        latitudeInput: $('#kc-lat'),
+        longitudeInput: $('#kc-lon'),
+        locationNameInput: $('#kc-location')
+    },
+    enableAutocomplete: true,
+  });
+});
+/* }); */
+</script>
+
+<script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+
+<script>
+$(document).ready(function(){
+    var preview = $(".cover-preview img");
+
+    $(".cover-file").change(function(event){
+       var input = $(event.currentTarget);
+       var file = input[0].files[0];
+       var reader = new FileReader();
+       reader.onload = function(e){
+           image_base64 = e.target.result;
+           preview.attr("src", image_base64);
+       };
+       reader.readAsDataURL(file);
+    });
+});
+</script>

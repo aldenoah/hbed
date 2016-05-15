@@ -1,9 +1,24 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_filter :set_header_variable, :disable_json, :mobile_device?
+  before_filter :mobile_device?
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  
+  def admin_signed_in?
+    if user_signed_in?
+      if current_user.role != "Admin"
+        redirect_to root_url, notice: "We're sorry we couldn't find the page you were looking for!"
+      end
+    else
+      redirect_to root_url, notice: "We're sorry we couldn't find the page you were looking for!"
+    end
+  end
 
-  def set_header_variable
+  def after_sign_in_path_for(user)
+    request.referer
+  end
+
+  def after_sign_up_path_for(user)
+    request.referer
   end
 
   def disable_json

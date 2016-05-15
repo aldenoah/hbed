@@ -1,0 +1,74 @@
+<% title 'Your Guests - No Shows' %>
+<% noindex %>
+<%= render 'layouts/header' %>
+
+<div class="subnav">
+  <ul class="subnav-list">
+    <div class="container">
+      <li><%= link_to "Your Guests", reservations_path, class: "subnav-item zeroLeft active" %></li>
+      <li><%= link_to "Your Listings", listings_path, class: "subnav-item" %></li>
+      <li><%= link_to "Your Staycations", upcoming_path, class: "subnav-item" %></li>
+      <li><%= link_to "Your Account", edit_user_path(current_user), class: "subnav-item" %></li>
+    </div>
+  </ul>
+</div>
+<div class="container">
+<div class="row">
+  <div class="col-md-2">
+    <ul class="sidebar-list">
+      <li><%= link_to "Pending Arrival", reservations_path %></li>
+      <li><%= link_to "Checked In", checked_in_path %></li>
+      <li><%= link_to "Checked Out", checked_out_path %></li>
+      <li><%= link_to "Cancelled", guest_cancelled_path %></li>
+      <li><%= link_to "No Shows", no_shows_path, class: "active" %></li>
+    </ul>
+  </div>
+  <div class="col-md-10">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">No Shows</h3>
+    </div>
+    <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Check In</th>
+            <th>Room</th>
+            <th>Customer</th>
+            <th>Price</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @bookings.each do |booking| %>
+            <tr>
+              <td><%= booking.id %></td>
+              <td>
+                <%= "#{booking.check_in.strftime("%b %d, %Y - %l:%M %p")}" %>
+                <p><small><%= "#{booking.guest} guest for #{booking.duration} hour" %></small></p>
+              </td>
+              <td><%= link_to booking.room_name, room_path(id: booking.room_id, start_date: Date.today, duration: 3) %></td>
+              <td>
+                <%= "#{booking.first_name} #{booking.last_name}" %>
+                <p><small><b><%= booking.booking_code %></b></small></p>
+              </td>
+              <td>
+                <b><%= booking.subtotal.format(symbol_before_without_space: false) %></b>
+                <p><small>DEP: RM 100.00</small></p>
+              </td>
+              <td>
+                <%= booking.status%>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+    
+  </div>
+</div>
+</div>

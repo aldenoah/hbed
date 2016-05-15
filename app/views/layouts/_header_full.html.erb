@@ -1,0 +1,88 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><b>HOUR</b>BEDS</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li><%= link_to "SITE MANAGER", pending_transfers_path %></li>
+
+          <li><%= link_to "MEMBER", listings_path %></li>
+          <li><%= link_to "SIGN OUT", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+        <li class="dropdown yamm">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">SIGN IN<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li>
+              <div class="yamm-content">
+                <div class="tab-menu">
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#signin" aria-controls="signin" role="tab" data-toggle="tab">Sign in</a></li>
+                  <li role="presentation"><a href="#signup" aria-controls="signup" role="tab" data-toggle="tab">Sign up</a></li>
+                </ul>
+                </div>
+
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="signin">
+                    <%= simple_form_for(:user, url: session_path(:user)) do |f| %>
+                      <div class="form-group">
+                        <%= f.input :email, required: false, input_html: {class: "form-control"} %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.input :password, required: false, input_html: {class: "form-control"} %>
+                      </div>
+                      <div class="form-group">
+                        <div class="checkbox checkbox-success">
+                          <%= f.check_box :remember_me, {checked: false} %>
+                          <label>Keep me logged in</label>
+                        </div>
+                      </div>  
+                      <div class="form-group">
+                        <%= f.button :submit, "Log in", class: "btn btn-lg btn-primary full-width" %>
+                      </div>
+                        <small><%= link_to "Forgot your password?", new_password_path(:user) %></small>
+                    <% end %>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="signup">
+                    <%= simple_form_for(:user, url: registration_path(:user)) do |f| %>
+                      <%= f.error_notification %>
+
+                      <div class="form-group">
+                        <%= f.input :email, required: true, input_html: {class: "form-control"} %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: {class: "form-control"} %>
+                      </div>
+                  
+                      <div class="form-group">
+                        <%= f.button :submit, "Sign up", class: "btn btn-lg btn-primary full-width" %>
+                      </div>
+                    <% end %>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <% end %>
+      </ul> 
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<script>
+$(document).on('click', '.yamm .dropdown-menu', function(e) {
+  e.stopPropagation()
+})
+</script>

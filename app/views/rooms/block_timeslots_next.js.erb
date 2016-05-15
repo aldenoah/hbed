@@ -1,0 +1,1 @@
+$('#select_to').html("<%= escape_javascript(select_tag :check_out, options_for_select(Hash[@timeslot_select.zip(@timeslots)], disabled: @result_next), prompt: "Select time") %>");

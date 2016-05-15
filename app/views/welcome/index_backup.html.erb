@@ -1,0 +1,88 @@
+<% title 'Hourbeds' %>
+<% noindex %>
+
+<% content_for :for_head do %>
+  <meta property="og:title" content="Hourbeds" />
+  <meta property="og:image" content="<%= asset_url '' %>" />
+  <meta property="og:url" content="http://www.hourbeds.com" />
+  <meta property="og:description" content="Hourbeds" />
+<% end %>
+
+<%= render 'layouts/header' %>
+
+<div class="container-full">
+  <div id="home-hero-container" class="jumbotron squarify"> 
+  <div class="img-overlay">
+    <div class="home-hero container">  
+    <h1 class="hero-title"><%= t "welcome.title" %></h1>
+    <h2 class="hero-subtext">Find and book hotel rooms by the hour.</h2>
+      <div class="hero-form-container">
+        <div id="home-map-picker-box" class="roundify">
+          <%= form_tag search_rooms_path, method: :get do %>
+          <div class="row">
+            <div class="col-md-5 pad-right-5">
+              <%= select_tag :area, options_for_select(@areas.collect {|u| [ u.name, u.id ] }), selected: 1, class: "form-control input-lg" %>
+            </div>
+            <div class="col-md-2 pad-right-5 pad-left-5">
+              <%= text_field_tag :start_date, params[:start_date], placeholder: 'Select date', autocomplete: 'off', readonly: true, value: Date.today, class: "form-control input-lg select-height datepicker1" %> 
+            </div>
+            <div class="col-md-2 pad-right-5 pad-left-5">
+              <%= select_tag :duration, options_for_select(Area::DURATION_SELECT), selected: 3, class: "form-control input-lg" %>
+            </div>
+            <%= hidden_field_tag :min_price, 0 %>
+            <%= hidden_field_tag :max_price, 300 %>
+
+
+            <div class="col-md-3 pad-left-5">
+               <%= button_tag "Check Rates", data: {disable_with: "WAIT..."}, class: "btn btn-lg btn-primary full-width" %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="container nomobPad">
+<h1 class="line-behind "><span>TOP LOCATIONS</span></h1>
+<div class="row">
+  <div class="col-md-8">
+    <%=  link_to area_path(id: 1) do %>
+    <div class="area-wrapper">
+      <%= image_tag("bg.jpg") %>
+      <div class="area-description">
+        <h1>Kota Kinabalu</h1>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div class="col-md-4">
+    <%=  link_to area_path(id: 2) do %>
+    <div class="area-wrapper">
+      <%= image_tag("bg.jpg") %>
+      <div class="area-description">
+        <h1>Penampang</h1>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.datepicker1').datepicker({
+      format: 'yyyy-mm-dd',
+      startDate: "+0d",
+      endDate: "+90d",
+      orientation: "left bottom",
+      /* datesDisabled: ["2015-11-07","2015-11-10"], */
+      /* daysOfWeekDisabled: "06", */
+      /* daysOfWeekDisabled: "12345", */
+      weekStart: "1",
+      autoclose: true,
+      /* datesDisabled: gon.unavailable_dates */
+    });
+  });
+</script>

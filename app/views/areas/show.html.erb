@@ -1,26 +1,4 @@
-<nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/"><b>HOUR</b>BEDS</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "REGISTER", new_user_registration_path %></li>
-        <li><%= link_to "LOGIN", new_user_session_path %></li>
-      </ul> 
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
+<%= render 'layouts/header_full' %>
 
 <div class="container-full">
 <div class="row">
@@ -41,21 +19,16 @@
     <div class="sidebar">
       <div style="padding: 15px;">
       <%= search_form_for @search, url: area_path(@area), html: { method: :get } do |f| %>
-        <div class="row">
-          <div class="col-md-6 padRight-5">
-            <%= f.select :area_id_eq, options_from_collection_for_select(Area.all, "id", "name", @search.area_id_eq), {:prompt => "Select destination"}, class: "form-input select-fix marBot-10 noBor" %>
-          </div>
-          <div class="col-md-6 padLeft-5">
-            <%= select_tag :duration, options_for_select(Area::DURATION_SELECT), prompt: "Select duration", class: "form-input select-fix marBot-10 noBor" %>
-          </div>
-        </div>
+        
+            <%= f.select :area_id_eq, options_from_collection_for_select(Area.all, "id", "name", @search.area_id_eq), {:prompt => "Select destination"}, class: "form-control marBot-10" %>
+          
 
         <div class="row">
           <div class="col-md-6 padRight-5">
-            <%= text_field_tag :date, params[:date], placeholder: 'Select date', autocomplete: 'off', readonly: true, class: "form-input marBot-15 noBor datepicker1" %>
+            <%= text_field_tag :date, params[:date], placeholder: 'Select date', autocomplete: 'off', readonly: true, class: "form-control marBot-10 datepicker1" %>
           </div>
           <div class="col-md-6 padLeft-5">
-            <%= select_tag :time, options_for_select(Area::TIME_SELECT), prompt: "Select time", class: "form-input select-fix marBot-15 noBor" %>
+            <%= select_tag :duration, options_for_select(Area::DURATION_SELECT), selected: "3 hours", class: "form-control marBot-10" %>
           </div>
         </div>  
           
@@ -68,7 +41,10 @@
       </div>
       <div style="padding: 15px;">
       <%= search_form_for @search, url: area_path(@area), html: { method: :get } do |f| %>
-        <%= f.select :area_id_eq, options_from_collection_for_select(Area.all, "id", "name", @search.area_id_eq), {:prompt => "Select destination"}, class: "form-input select-fix marBot-10 noBor" %>
+        <%= f.select :area_id_eq, options_from_collection_for_select(Area.all, "id", "name", @search.area_id_eq), {:prompt => "Select destination"}, class: "form-control marBot-10 noBor" %>
+
+        <%= f.label :district_cont %>
+          <%= f.search_field :district_cont %>
         <div class="text-right">
         <%= button_tag "Update", data: {disable_with: "WAIT..."}, class: "btn btn-default" %>
          </div>
@@ -82,7 +58,7 @@
     <div class="row">
       <% @rooms.each do |room| %>
       <div class="col-md-6">
-      <%= link_to room_path(room), target: "_blank" do %>
+      <%= link_to room_path(room, start_date: @start_date, duration: @duration) do %>
         <div class="room-wrapper">
           <%= image_tag('bg.jpg') %>
 
@@ -91,7 +67,7 @@
               <span class="ribbon ribbon-pale-green">MYR 50.00 <sub>/ 3 hours</sub></span> 
             </div>
             <h1><%= room.name %> Double Room</h1>
-            <p>Beverly Hills, Kota Kinabalu
+            <p><%= "#{room.district}, #{room.area.name}" %></p>
           </div>
         </div>
       <% end %>

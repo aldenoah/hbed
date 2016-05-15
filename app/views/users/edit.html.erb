@@ -1,0 +1,38 @@
+<% title 'Your Account - Edit Profile' %>
+<% noindex %>
+<%= render 'layouts/header' %>
+
+<div class="subnav">
+  <ul class="subnav-list">
+    <div class="container">
+      <li><%= link_to "Your Guests", reservations_path, class: "subnav-item zeroLeft" %></li>
+      <li><%= link_to "Your Listings", listings_path, class: "subnav-item" %></li>
+      <li><%= link_to "Your Staycations", upcoming_path, class: "subnav-item" %></li>
+      <li><%= link_to "Your Account", edit_user_path(current_user), class: "subnav-item active" %></li>
+    </div>
+  </ul>
+</div>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-3">
+    <ul class="sidebar-list">
+      <li><%= link_to "Edit Profile", edit_user_path(current_user), class: "active" %></li>
+      <li><%= link_to "Change Password", edit_user_registration_path%></li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Edit Profile</h3>
+    </div>
+    <div class="panel-body">
+      <%= render 'form' %>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+
+
+

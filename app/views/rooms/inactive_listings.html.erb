@@ -1,0 +1,62 @@
+<% title 'Your Listings - Inactive Listings' %>
+<% noindex %>
+<%= render 'layouts/header' %>
+
+<div class="subnav">
+  <ul class="subnav-list">
+    <div class="container">
+      <li><%= link_to "Your Guests", reservations_path, class: "subnav-item zeroLeft" %></li>
+      <li><%= link_to "Your Listings", listings_path, class: "subnav-item active" %></li>
+      <li><%= link_to "Your Staycations", upcoming_path, class: "subnav-item" %></li>
+      <li><%= link_to "Your Account", edit_user_path(current_user), class: "subnav-item" %></li>
+    </div>
+  </ul>
+</div>
+<div class="container">
+<div class="row">
+  <div class="col-md-3">
+    <ul class="sidebar-list">
+      <li><%= link_to "Active Listings", listings_path %></li>
+      <li><%= link_to "Inactive Listings", inactive_listings_path, class: "active" %></li>
+    </ul>
+    <br>
+    <%= link_to "Add New Listing", new_room_path, class: "btn btn-lg btn-primary full-width" %>
+  </div>
+  <div class="col-md-9">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Inactive Listings</h3>
+    </div>
+    <div class="panel-body">
+      <% @rooms.each do |room| %>
+        <div class="listing-wrapper">
+          <div class="row">
+            <div class="col-xs-3">
+              <%= image_tag room.cover.url %>
+            </div>
+            <div class="col-xs-7">
+              <h4><%= room.name %></h4>
+              <p><%= link_to "Edit Calendar", calendar_path(room) %> | <%= link_to "Edit Listing", edit_room_path(room) %></p>
+              <% if room.title.blank? || room.description.blank? || room.cover.blank? %>
+                <%= image_tag 'lock.png', class: "icon-sm" %> <small>To activate, room must have a title, description and cover photo.</small>
+              <% end %> 
+            </div>
+            <div class="col-xs-2">
+              <%= form_tag update_listing_status_path(id: room) do %>
+                <% if room.title.blank? || room.description.blank? || room.cover.blank? %>
+                  <%= submit_tag "Activate", disabled: true, class: "btn btn-success full-width" %>
+                <% else %>
+                  <%= submit_tag "Activate", class: "btn btn-success full-width" %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <hr>
+      <% end %>
+    </div>
+  </div>
+    
+  </div>
+</div>
+</div>

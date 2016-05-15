@@ -1,0 +1,33 @@
+#card-number, #cvv, #expiration-date {
+  border: 1px solid #cecece;
+  -webkit-transition: border-color 160ms;
+  transition: border-color 160ms;
+  height: 40px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+#card-number.braintree-hosted-fields-focused {
+  border-color: #cecece;
+}
+
+#card-number.braintree-hosted-fields-invalid, #cvv.braintree-hosted-fields-invalid, #expiration-date.braintree-hosted-fields-invalid {
+  border-color: tomato;
+}
+
+#card-number.braintree-hosted-fields-valid, #cvv.braintree-hosted-fields-valid, #expiration-date.braintree-hosted-fields-valid {
+  border-color: limegreen;
+}
+
+.credit-card-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 13px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    margin-bottom: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

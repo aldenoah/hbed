@@ -1,0 +1,50 @@
+<% title 'Admin - Users' %>
+<% noindex %>
+<%= render 'layouts/header' %>
+
+<div class="subnav">
+  <ul class="subnav-list">
+    <div class="container">
+      <li><%= link_to "Bank Transfers", pending_transfers_path, class: "subnav-item zeroLeft" %></li>
+      <li><%= link_to "Bookings", bookings_path, class: "subnav-item" %></li>
+      <li><%= link_to "Listings", rooms_path, class: "subnav-item" %></li>
+      <li><%= link_to "Images", uploads_path, class: "subnav-item" %></li>
+      <li><%= link_to "Users", users_path, class: "subnav-item active" %></li>
+      <li><%= link_to "Areas", areas_path, class: "subnav-item" %></li>
+      <li><%= link_to "Countries", locations_path, class: "subnav-item" %></li>
+    </div>
+  </ul>
+</div>
+
+<div class="container">
+<div class="table-responsive">
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Currency</th>
+      <th>Role</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= "#{user.first_name} #{user.last_name}" %></td>
+        <td><%= mail_to user.email %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.currency %></td>
+        <td><%= user.role %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>

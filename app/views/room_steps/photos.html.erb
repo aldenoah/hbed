@@ -1,0 +1,80 @@
+<% title 'New Listing - Photos' %>
+<% noindex %>
+
+<nav class="navbar navbar-default" role="navigation" id="navbar-book">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/"><b>HOUR</b>BEDS</a>
+    </div>
+  </div>
+</nav>
+<div class="container">
+<div class="row">
+  <div class="col-md-3">
+    <ul class="sidebar-steps">
+      <li class="done">
+        <b>Step 1</b>
+        <span class="float-right">Basic Info</span>
+      </li>
+      <li class="done">
+        <b>Step 2</b>
+        <span class="float-right">About Listing</span>
+      </li>
+      <li class="done">
+        <b>Step 3</b>
+        <span class="float-right">Tariff / Pricing</span>
+      </li>
+      <li class="active">
+        <b>Step 4</b>
+        <span class="float-right">Photos</span>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <%= simple_form_for(@room, html: { multipart: true }, url: wizard_path) do |f| %>
+      <%= f.error_notification %>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="cover-preview">
+            <label for="cover-input" class="cursor-on">
+              <%= image_tag @room.cover.url, class: "primary-img" %>
+            </label>
+            <%= f.input :cover, label: false, input_html: {id: "cover-input", class: "cover-file hidden"} %>
+          </div>
+        </div>
+       <div class="col-md-7">
+          <div class="form-group">
+            <div class="row">
+            <%= f.fields_for :uploads do |builder| %>
+              <%= render 'rooms/image_fields', f: builder %> 
+            <% end %>
+            </div>
+          </div> 
+        </div> 
+      </div>
+        <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Fact:</b> a picture speaks a thousand words. Upload your best photos to get more bookings.</small>
+      <hr>
+      <div class="form-group">
+        <%= f.button :submit, "Save & Finish", class: "btn-lg btn-success" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+</div>
+
+<script>
+$(document).ready(function(){
+    var preview = $(".cover-preview img");
+
+    $(".cover-file").change(function(event){
+       var input = $(event.currentTarget);
+       var file = input[0].files[0];
+       var reader = new FileReader();
+       reader.onload = function(e){
+           image_base64 = e.target.result;
+           preview.attr("src", image_base64);
+       };
+       reader.readAsDataURL(file);
+    });
+});
+</script>

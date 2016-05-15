@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Seller:</strong>
+  <%= @booking.seller_id %>
+</p>
+
+<p>
+  <strong>Buyer:</strong>
+  <%= @booking.buyer_id %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @booking.duration %>
+</p>
+
+<p>
+  <strong>Subtotal:</strong>
+  <%= @booking.subtotal %>
+</p>
+
+<p>
+  <strong>Service fee:</strong>
+  <%= @booking.service_fee %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @booking.total %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @booking.room_name %>
+</p>
+
+<%= link_to 'Edit', edit_booking_path(@booking) %> |
+<%= link_to 'Back', bookings_path %>

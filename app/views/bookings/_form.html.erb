@@ -1,0 +1,22 @@
+<%= simple_form_for(@booking) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :seller_id %>
+    <%= f.input :buyer_id %>
+    <%= f.input :room_id %>
+    <%= f.input :duration %>
+    <%= f.input :subtotal %>
+    <%= f.input :service_fee %>
+    <%= f.input :total %>
+    <%= f.input :room_name %>
+    <%= f.input :start_date %>
+    <%= f.input :check_in %>
+    <%= f.input :check_out %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

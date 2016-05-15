@@ -1,0 +1,148 @@
+<%= render 'layouts/header' %>
+
+<div class="top-section-alt">
+  <div class="container">
+    <h1><%= "Calendar for #{@room.name}" %></h1>
+    <small><%= link_to "Back to Your Listings", listings_path %></small>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="row">
+  <div class="col-md-8">
+  <%= week_calendar events: @bookings do |day| %>
+    <% start = day.beginning_of_day %>
+    <% ending = day.end_of_day - 1.hour %> <!-- # Delete - 1.hour -->
+    <div class="date-row">
+      <%= start.strftime("%e") %>
+    </div>
+    <% while start < ending do %>
+      <div class="day-hour">
+        <p><%= (start + 1.hour).strftime("%l:%M %P") if start.strftime("%a") == 'Mon' %></p>
+
+        <% @bookings.each do |booking| %>
+          <% if start.between?(booking.check_in_date, booking.check_out - 1.second) %>
+            <% if booking.payment_method != 'Block' %>
+              <div class="occupied" href="#" data-toggle="tooltip" data-placement="bottom" title='<%= "#{booking.first_name} #{booking.last_name}" %>'></div>
+            <% else %>
+              <div class="blocked"></div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>    
+      <% start += 1.hour %>
+    <% end %>
+  <% end %>
+  </div>
+  <div class="col-md-4">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Block a Timeslot</h3>
+      </div>
+      <div class="panel-body">
+        <%= simple_form_for(@booking) do |f| %>
+          <%= f.error_notification %>
+
+            <%= f.input :room_id, as: :hidden, input_html: {value: @room.id} %>
+            <%= f.input :payment_method, as: :hidden, input_html: {value: 'Block'} %>
+
+          <div class="form-group">
+            <label>Start Date</label>
+            <%= f.text_field :start_date, placeholder: "Select Date", value: Date.today, id: "select_date", class: "form-control datepicker1" %>
+          </div>
+          
+          <div class="form-group">
+            <%= f.input :check_in, collection: Hash[@timeslot_select.zip(@timeslots)], disabled: @result, label: 'Start Time', prompt: "Select time", input_html: {id:"select_from", class: "form-control"} %>
+          </div>
+            <%= f.input :check_out, collection: Hash[@timeslot_select.zip(@timeslots)], disabled: @result_next, label: 'End Time', prompt: "Select time", input_html: {id:"select_to", class: "form-control"} %>
+          <br>
+            <%= f.button :submit, "Mark as unavailable", class: "btn btn-lg btn-success full-width" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Remove Blocked Timeslots</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered">
+
+        <tbody>
+          <% @blocks.each do |block| %>
+            <tr>
+              <td>
+                <b><%= "#{block.check_in.strftime("%b %d, %Y")}" %></b>
+                <span style="display:block;"><%= "#{block.check_in.strftime("%l:%M %p")} - #{block.check_out.strftime("%l:%M %p")}" %></span>
+              </td>
+              <td><%= link_to 'Remove', block, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</div>
+
+
+<script>
+  $(document).ready(function() {
+    $('#select_date').change(function() {
+      $.ajax({
+        url: "<%= block_timeslots_path %>",
+        data: {
+          start_date : $('#select_date').val(),
+          id : <%= @room.id %>
+        },
+        dataType: "script"
+      });
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#select_from').change(function() {
+      $.ajax({
+        url: "<%= block_timeslots_next_path %>",
+        data: {
+          start_date : $('#select_date').val(),
+          check_in : $('#select_from').val(),
+          id : <%= @room.id %>
+        },
+        dataType: "script"
+      });
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function(){
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('.datepicker1').datepicker({
+      format: 'yyyy-mm-dd',
+      startDate: "+0d",
+      endDate: "+90d",
+      orientation: "left bottom",
+      /* datesDisabled: ["2015-11-07","2015-11-10"], */
+      /* daysOfWeekDisabled: "06", */
+      /* daysOfWeekDisabled: "12345", */
+      weekStart: "1",
+      autoclose: true,
+      /* datesDisabled: gon.unavailable_dates */
+    });
+  });
+</script>

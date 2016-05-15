@@ -61,6 +61,8 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-datepicker-rails (1.5.0)
       railties (>= 3.0)
     bootstrap-sass (3.2.0.2)
@@ -89,6 +91,7 @@ GEM
       timers (>= 4.1.1)
     celluloid-supervision (0.20.5)
       timers (>= 4.1.1)
+    chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.8)
@@ -106,6 +109,9 @@ GEM
       currencies (~> 0.4.2)
       i18n_data (~> 0.7.0)
     currencies (0.4.2)
+    date_time_attribute (0.1.2)
+      activesupport (>= 3.0.0)
+    debug_inspector (0.0.2)
     devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -124,10 +130,6 @@ GEM
       sass (>= 3.2)
     friendly_id (5.0.5)
       activerecord (>= 4.0.0)
-    fullcalendar-rails (2.5.0.0)
-      jquery-rails (>= 4.0.5, < 5.0.0)
-      jquery-ui-rails (>= 5.0.2)
-      momentjs-rails (>= 2.9.0)
     geocoder (1.2.12)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -137,6 +139,8 @@ GEM
       json
       multi_json
       request_store (>= 1.0)
+    google_currency (3.3.0)
+      money (~> 6.7)
     gretel (3.0.8)
       rails (>= 3.2.0)
     hitimes (1.2.3-x86-mingw32)
@@ -149,9 +153,8 @@ GEM
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (5.0.5)
-      railties (>= 3.2.16)
     json (1.8.3)
+    jwt (1.5.2)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -168,8 +171,16 @@ GEM
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
-    momentjs-rails (2.10.6)
-      railties (>= 3.1)
+    monetize (1.4.0)
+      money (~> 6.7)
+    money (6.7.0)
+      i18n (>= 0.6.4, <= 0.7.0)
+      sixarm_ruby_unaccent (>= 1.1.1, < 2)
+    money-rails (1.6.0)
+      activesupport (>= 3.0)
+      monetize (~> 1.4.0)
+      money (~> 6.7)
+      railties (>= 3.0)
     multi_json (1.11.2)
     nokogiri (1.6.7-x86-mingw32)
       mini_portile2 (~> 2.0.0.rc2)
@@ -237,9 +248,12 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    simple_calendar (2.0.3)
+      rails (>= 3.0)
     simple_form (3.2.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    sixarm_ruby_unaccent (1.1.1)
     sprockets (3.4.1)
       rack (> 1, < 3)
     sprockets-rails (2.3.3)
@@ -253,6 +267,10 @@ GEM
     tilt (2.0.1)
     timers (4.1.1)
       hitimes
+    twilio-ruby (4.10.0)
+      builder (>= 2.1.2)
+      jwt (~> 1.0)
+      multi_json (>= 1.3.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     tzinfo-data (1.2015.7)
@@ -272,24 +290,27 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (< 2.0)
   better_errors
+  binding_of_caller
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.2.0)
   braintree
   bullet
   cancancan (~> 1.10.1)
+  chronic (~> 0.10.2)
   cocoon
   coffee-rails (~> 4.1.0)
   coffee-script-source (= 1.8.0)
   country_select!
+  date_time_attribute (~> 0.1.2)
   devise
   figaro
   flexslider
   font-awesome-sass (~> 4.4.0)
   friendly_id (~> 5.0.0)
-  fullcalendar-rails
   geocoder
   gmaps4rails
   gon
+  google_currency (~> 3.2)
   gretel
   jbuilder (~> 2.0)
   jquery-rails
@@ -297,7 +318,8 @@ DEPENDENCIES
   local_time (~> 1.0.2)
   mandrill-api (~> 1.0.53)
   meta-tags!
-  momentjs-rails
+  monetize
+  money-rails
   paperclip (~> 4.2)
   pg
   rails (= 4.2.1)
@@ -305,8 +327,10 @@ DEPENDENCIES
   ransack
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  simple_calendar (~> 2.0)
   simple_form
   sucker_punch
+  twilio-ruby (~> 4.9)
   tzinfo-data
   uglifier (>= 1.3.0)
   wicked

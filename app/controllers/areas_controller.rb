@@ -1,10 +1,11 @@
 class AreasController < ApplicationController
   before_action :set_area, only: [:show, :edit, :update, :destroy]
+  before_filter :admin_signed_in?, only: [:index]
 
   # GET /areas
   # GET /areas.json
   def index
-    @areas = Area.all
+    @areas = Area.all.includes(:location)
   end
 
   # GET /areas/1
@@ -77,6 +78,6 @@ class AreasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def area_params
-      params.require(:area).permit(:name)
+      params.require(:area).permit(:name, :location_id)
     end
 end

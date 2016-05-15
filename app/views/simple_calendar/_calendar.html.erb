@@ -1,0 +1,17 @@
+<div class="simple-calendar">
+  <div class="custom-calendar">
+      <% date_range.each_slice(7) do |week| %>
+          <% week.each do |day| %>
+            <%= content_tag :td, class: calendar.td_classes_for(day) do %>
+              <% if defined?(Haml) && block_is_haml?(block) %>
+                <% capture_haml do %>
+                  <% block.call day, sorted_events.fetch(day, []) %>
+                <% end %>
+              <% else %>
+                <% block.call day, sorted_events.fetch(day, []) %>
+              <% end %>
+            <% end %>
+          <% end %>
+      <% end %>
+  </div>
+</div>

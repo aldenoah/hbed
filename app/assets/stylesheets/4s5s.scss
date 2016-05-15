@@ -1,4 +1,4 @@
-@media (max-width : 375px) and (min-width : 321px) {
+@media (max-width : 479px) and (min-width : 411px) {
   .mobile-visible {
       visibility: visible;
       display: block;
@@ -8,6 +8,11 @@
       visibility: hidden;
       display: none;
   };
+
+  .navbar-default .navbar-collapse {
+    border: none;
+    margin-top: 3px;
+  }
 
   .nomobPad {
     padding: 0 !important;

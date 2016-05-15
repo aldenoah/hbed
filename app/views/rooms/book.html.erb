@@ -1,0 +1,164 @@
+<% title 'Confirm Booking' %>
+<% noindex %>
+
+<nav class="navbar navbar-default" role="navigation" id="navbar-book">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/"><b>HOUR</b>BEDS</a>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="col-md-4 zeroLeft">
+    <%= image_tag('bg.jpg') %>
+    <div class="sidebar-wrapper">
+    <h4><%= @room.title %></h4>
+    <p><%= "#{@room.district}, #{@room.area.name}, #{@room.area.location.name}" %></p>
+    <hr>
+    <p><b>Check in:</b> <%= @check_in.strftime("%b %d, %Y - %l:%M %p") %></p>
+    <p><b>Check out:</b> <%= @check_out.strftime("%b %d, %Y - %l:%M %p") %></p>
+    <p><b>Guest:</b> <%= "#{@guest} guest" %></p>
+    <hr>
+    <table>
+      <tbody>
+        <tr>
+          <td><p><b>Pay Now</b></p></td>
+          <td class="text-right"><p><b><%= "#{@room.area.location.currency_symbol} #{@pay_now}" %></b></p></td>
+        </tr>
+        <tr>
+          <td><p><b>Pay on Arrival</b></p></td>
+          <td class="text-right"><p><%= "#{@room.area.location.currency_symbol} #{@pay_later}" %></p></td>
+        </tr>
+        <tr>
+          <td><p><small><i>* All price are tax included</i></small></p></td>
+        </tr>
+        <tr>
+          <td>Deposit on Arrival (Refundable)</p></td>
+          <td class="text-right"><p><%= "#{@room.area.location.currency_symbol} #{@room.deposit}" %></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="final-price">
+      <table>
+        <tbody>
+          <tr>
+            <td><h4>Total Price</h4></td>
+            <td class="text-right"><h4><%= "#{@room.area.location.currency_symbol} #{@total}" %></h4></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-8 zeroRight">
+    <%= simple_form_for(@booking) do |f| %>
+      <%= f.error_notification %>
+      <h4>Booking Details</h4>
+      <hr>
+      <div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <%= f.input :first_name, label: "First Name", disabled: true, input_html: {value: current_user.first_name, class: "form-control"} %>
+            <%= f.input :first_name, as: :hidden, input_html: {value: current_user.first_name} %>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <%= f.input :last_name, label: "Last Name", disabled: true, input_html: {value: current_user.last_name, class: "form-control"} %>
+            <%= f.input :last_name, as: :hidden, input_html: {value: current_user.last_name} %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group"> 
+            <%= f.input :email, label: "Email Address", disabled: true, input_html: {value: current_user.email, class: "form-control"} %>
+            <%= f.input :email, as: :hidden, input_html: {value: current_user.email} %>
+          </div>
+        </div>
+        <div class="col-sm-6"> 
+          <div class="form-group">
+            <%= f.input :phone, label: "Mobile Phone No.", disabled: true, input_html: {value: current_user.phone, class: "form-control"} %>
+            <%= f.input :phone, as: :hidden, input_html: {value: current_user.phone} %>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <!--
+      <div id="donation-box">
+        <div class="checkbox checkbox-success">
+          <%= check_box_tag :donation_select, params[:donation_select], true, id: "donation_checkbox" %>
+          <label>Add <u>RM5.00</u> to my purchase for charity to improve the mood of 68 hospitalized children  who must undergo surgery. <%= link_to "Futher information", "#" %></label>
+        </div>
+      </div>
+      -->
+      <br>
+      <br>
+      <h4>Payment Method</h4>
+      <hr>
+      <div class="radio radio-default radio-inline">
+        <%= radio_button_tag 'payment_method', 'Bank Transfer', true %>
+        <label>Bank Transfer</label>
+      </div>
+      <div class="radio radio-default radio-inline">
+        <%= radio_button_tag 'payment_method', 'PayPal', false, disabled: true %>
+        <label>PayPal (Coming soon)</label>
+      </div>
+      <!--
+      <div class="radio radio-default radio-inline">
+        <%= radio_button_tag 'payment_method', 'Credit Card', false, disabled: true %>
+        <label>Credit Card (Coming soon)</label>
+      </div>
+      -->
+      <div id="paypal-box">
+        Click 'Confirm my booking' and we will take you to our PayPal payment page. You must complete the process or the transaction will not occur.
+      </div>
+      <div id="bank-box">
+         Click 'Confirm my booking' and we will take you to our Payment Instruction page. You are to transfer <b><%= "#{@room.area.location.currency_symbol} #{@pay_now}" %></b> to our <b>Maybank Account</b> and send us proof of payment to our email address or mobile number(Whatsapp). You must complete the payment instruction or the transaction will not occur.
+      </div>
+
+      <br>
+      
+      <p>By confirming, you agree to the House Rules, Cancellation Policy, and the Guest Refund Policy.</p>
+
+      <%= f.button :submit, "Confirm my booking", class: "btn btn-lg btn-primary full-width" %>
+
+      <%= f.input :room_id, as: :hidden, input_html: {value: params[:id]} %>
+
+      <%= f.input :start_date, as: :hidden, input_html: {value: @start_date} %>
+      <%= f.input :check_in, as: :hidden, input_html: {value: @check_in} %>
+      <%= f.input :check_out, as: :hidden, input_html: {value: @check_out} %>
+      <%= f.input :duration, as: :hidden, input_html: {value: @duration} %>
+      <%= f.input :guest, as: :hidden, input_html: {value: @guest} %>
+      <%= f.input :subtotal, as: :hidden, input_html: {value: @pay_later} %>
+      <%= f.input :service_fee, as: :hidden, input_html: {value: @pay_now} %>
+      <%= f.input :total, as: :hidden, input_html: {value: @total} %>
+
+    <% end %>
+
+  </div>
+
+</div>
+
+<script>
+$(document).ready(function() {
+  $('input[type="radio"]').on( "change", function() {
+    if($(this).attr('id') == 'payment_method_PayPal') {
+      $('#paypal-box').show();           
+    }
+    else {
+      $('#paypal-box').hide();   
+    }
+  });
+  $('input[type="radio"]').on( "change", function() {
+    if($(this).attr('id') == 'payment_method_Bank_Transfer') {
+      $('#bank-box').show();           
+    }
+    else {
+      $('#bank-box').hide();   
+    }
+  });
+});
+</script>

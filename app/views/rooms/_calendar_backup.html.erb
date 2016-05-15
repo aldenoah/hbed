@@ -1,0 +1,44 @@
+<%= week_calendar events: @bookings do |day| %>
+      <%= start = day.beginning_of_day %>
+      <% ending = day.end_of_day %>
+
+        <% while start < ending do %>
+          <% if @bookings.where(check_in: start).present? %>
+            <div class="day-hour" style="background: lightblue;">
+              <%= start.strftime("%l:%M %P") %>
+            </div>
+            <% start += 0.5.hour %>
+          <% else %>
+            <div class="day-hour">
+              <%= start.strftime("%l:%M %P") %>
+            </div>
+            <% start += 0.5.hour %>
+          <% end %>
+        <% end %>
+    <% end %>
+
+
+
+
+        <%= week_calendar events: @bookings do |day| %>
+      <%= start = day.beginning_of_day %>
+      <% ending = day.end_of_day %>
+
+      <% while start < ending do %>
+        <% @bookings.each do |booking| %>
+          <% if (booking.check_in == start) %>
+            <% while start < booking.check_out %>
+              <div class="day-hour" style="background: lightblue;">
+                <%= start.strftime("%l:%M %P") %>
+              </div>    
+                <% start += 0.5.hour %>
+            <% end %>
+          <% else %>
+            <div class="day-hour">
+              <%= start.strftime("%l:%M %P") %>
+            </div>
+            <% start += 0.5.hour %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>

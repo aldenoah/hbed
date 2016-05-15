@@ -1,0 +1,39 @@
+<%= simple_form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  
+  <div class="form-group">
+    <%= f.input :role, required: true, collection: User::ROLE_SELECT, include_blank: false, input_html: {class: "form-control"}  %>
+  </div>
+  <br>
+  
+  <div class="form-group">
+    <%= f.input :first_name, required: true, input_html: {class: "form-control"} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :last_name, required: true, input_html: {class: "form-control"} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :phone, required: true, input_html: {class: "form-control"} %>
+  </div>
+  <br>
+  <div class="form-group">
+    <%= f.input :currency, required: true, label: "Currency", collection: User.currency_codes, prompt: "Select your country's currency", input_html: {class: "form-control"} %>
+  </div>
+  <hr>
+  <div class="form-group">
+    <%= f.button :submit, "Save Changes", class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>

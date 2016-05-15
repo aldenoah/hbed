@@ -1,0 +1,254 @@
+<script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'></script>
+<%= render 'layouts/header' %>
+
+<div class="flexslider">
+  <ul class="slides">
+    <li>
+      <%= image_tag("bg.jpg") %>
+    </li>
+    <li>
+      <%= image_tag("bg.jpg") %>
+    </li>
+    <li>
+      <%= image_tag("bg.jpg") %>
+    </li> 
+  </ul>
+</div>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-8">
+    <h1><%= @room.name %></h1>
+
+    <p><%= "#{@room.district}, #{@room.area.name}" %></p>
+    <hr>
+
+    <strong>Description</strong>
+     <p class="text-area">
+      <%= @room.description %>
+    </p>
+    <hr>
+    <strong>Amenities</strong>
+    <table>
+      <tbody>
+        <tr>
+          <td><span class="glyphicon glyphicon-ok"></span>Hair Dryer</td>
+          <td><span class="glyphicon glyphicon-ok"></span>Swimming Pool</td>
+          <td><span class="glyphicon glyphicon-ok"></span>Hot Shower</td>
+          <td><span class="glyphicon glyphicon-ok"></span>Bathtub</td>
+          <td><span class="glyphicon glyphicon-ok"></span>Shampoo</td>
+        </tr>
+        <tr>
+          <td><span class="glyphicon glyphicon-ok"></span>Hair Dryer</td>
+          <td><span class="glyphicon glyphicon-remove"></span>Swimming Pool</td>
+          <td><span class="glyphicon glyphicon-ok"></span>Hot Shower</td>
+          <td><span class="glyphicon glyphicon-ok"></span>Bathtub</td>
+          <td><span class="glyphicon glyphicon-ok"></span>Shampoo</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <div id="map" class="map-container"></div>
+
+
+  </div>
+  <div class="col-md-4">
+    <div class="pricing">
+      <table>
+        <tbody>
+          <tr>
+            <td>MYR <span id="grandSlam"><%= number_with_precision(@room.room_rates(params[:duration]), precision: 2) %></span></td>
+            <td class="text-right"><span class="price-per">For <span id="duration_show"><%= params[:duration] %></span> hours</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="booking-wrapper">
+      <%= form_tag book_rooms_path(id: @room), method: :post do %>      
+      <div class="row">
+        <div class="col-xs-6 padRight-5">
+          <label>Check in</label>
+
+          <%= text_field_tag :date, params[:date], placeholder: "Select Date", value: params[:start_date], id: "date_select", class: "form-input marBot-15 noBor datepicker1" %>
+        </div>
+        <div class="col-xs-6 padLeft-5">
+          <label>Duration</label>
+          <%= select_tag :hour, options_for_select(Area::DURATION_SELECT, params[:duration]), include_blank: false, id: "duration_select", class: "form-input marBot-15 noBor select-fix" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 padRight-5">
+          <label>Arrival time</label>
+           
+            
+
+
+
+          <%= select_tag :check_in, options_for_select(Hash[@timeslot_select.zip(@timeslots)], disabled: @result), prompt: "Select time", id:"time_select", class: "form-input marBot-15 noBor select-fix" %>
+        </div>
+        <div class="col-xs-6 padLeft-5">
+          <label>Guests</label>
+          <%= select_tag :guest, options_for_select((1..5).step(1).to_a.map{|s| ["#{s}", s]}, 2), id: "guest", class: "form-input marBot-15 noBor select-fix" %>
+        </div>
+      </div>
+      
+      <%= hidden_field_tag :subtotal, @room.room_rates(params[:duration]), id: "subtotal" %>
+      <%= hidden_field_tag :extra_person, 0, id: "extra_person" %>
+      <%= hidden_field_tag :grand_total, @room.room_rates(params[:duration]), id: "grand_total" %>
+
+      <%= button_tag "Book this room", data: {disable_with: "PLEASE WAIT..."}, class: "btn btn-lg btn-danger full-width" %>
+    <% end %>
+    </div>
+     
+
+  </div>
+</div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#date_select, #duration_select').change(function() {
+      $.ajax({
+        url: "<%= update_timeslots_path %>",
+        data: {
+          start_date : $('#date_select').val(),
+          duration : $('#duration_select').val(),
+          id : <%= @room.id %>
+        },
+        dataType: "script"
+      });
+    });
+  });
+</script>
+
+
+<script>
+  $('#duration_select').on('change',function(){
+    var extra_hour = this.value - 3;
+    var tot = (extra_hour * gon.extra) + <%= @room.price_per_three_hour %>;
+    var service = tot * 0.2;
+    var grandTotal = tot + service;
+    $('#duration_show').html(this.value);
+    $('#total').html(tot.toFixed(2));
+    $('#service').html(service.toFixed(2));
+    $('#grandTotal').html(grandTotal.toFixed(2));
+    $('#subtotal').val(grandTotal.toFixed(2));
+    updateTotal();
+  });
+  $('#guest').on('change',function(){
+    var guest = this.value;
+    var extra_guest = guest - <%= @room.max_guest %>;
+    $('#guest_show').html(this.value);
+    if (guest > <%= @room.max_guest %>) {
+      var extra_charge = extra_guest * 10.5;
+      $('#extra_charge').html(extra_charge);
+      $('#extra_person').val(extra_charge);
+      updateTotal();
+    } else {
+      var extra_charge = 0;
+      $('#extra_charge').html(extra_charge);
+      $('#extra_person').val(extra_charge);
+      updateTotal();
+    }
+  });
+  var updateTotal = function () {
+    var input1 = parseFloat($('#subtotal').val());
+    var input2 = parseFloat($('#extra_person').val());
+    if (isNaN(input1) || isNaN(input2)) {
+        if(!input2){
+          $('#grandSlam').html($('#subtotal').text());
+          $('#grand_total').val($('#subtotal').text());
+        }      
+        if(!input1){
+          $('#grandSlam').html($('#extra_person').text());
+          $('#grand_total').val($('#extra_person').text());
+        }        
+    } else {          
+      $('#grandSlam').html((input1 + input2).toFixed(2));
+      $('#grand_total').val((input1 + input2).toFixed(2));
+    }
+  };
+  var total = input1 + input2;
+  $('#grandSlam').html(total);
+  $('#grand_total').val(total);
+</script>  
+
+<script>
+  $(document).ready(function () {
+    $('.flexslider').flexslider({
+      prevText: "",
+      nextText: "",
+      animation: "slide",
+      slideshow: true,
+      slideshowSpeed: 4500,
+      touch: true
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('.datepicker1').datepicker({
+      format: 'yyyy-mm-dd',
+      startDate: "+0d",
+      endDate: "+90d",
+      orientation: "left bottom",
+      /* datesDisabled: ["2015-11-07","2015-11-10"], */
+      /* daysOfWeekDisabled: "06", */
+      /* daysOfWeekDisabled: "12345", */
+      weekStart: "1",
+      autoclose: true,
+      /* datesDisabled: gon.unavailable_dates */
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+  /**
+   * Draw points and radius (in kilometer) in map.
+   */
+  var points = [
+      {
+          point: new google.maps.LatLng(gon.latitude, gon.longitude),
+          //add radius/color attribute to set custom radius/color
+          //radius: 2,
+          //color '#CCCCCC',
+      }
+  ];
+
+  var zoom = 15;
+  var DEFAULT_COLOR = '#428bca';
+  var DEFAULT_RADIUS = 0.1; //Kilometers
+  var map;
+  var elevator;
+  var mapOptions = {
+      zoom: zoom,
+      navigationControl: false, 
+      streetViewControl: false,
+      mapTypeControl: false,
+      center: points[0].point,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+  };
+  map = new google.maps.Map($('#map')[0], mapOptions);
+  for (var i = 0; i < points.length; i++){
+      var point = points[i];
+      var marker = new google.maps.Marker({
+          map: map,
+          position: point.point,
+          title: i.toString()
+      });
+      var circle = new google.maps.Circle({
+          map: map,
+          fillOpacity: 0.4,
+          strokeColor: "#428bca",
+          radius: (point.radius !== undefined ? point.radius : DEFAULT_RADIUS) * 1000,    // metres
+          fillColor: (point.color !== undefined ? point.color : DEFAULT_COLOR)
+      });
+      circle.bindTo('center', marker, 'position');
+  }
+  marker.setMap(null);
+  });
+</script>
+

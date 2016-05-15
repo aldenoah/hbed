@@ -1,0 +1,86 @@
+// Place all the styles related to the bookings controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+table {
+  width: 100%;
+}
+
+.day {
+  width: 14.3%;
+  padding: 0 !important;
+}
+
+.day-hour {
+    border-bottom: 1px solid #cecece;
+    height: 60px;
+    padding: 0;
+    font-size: 10px;
+    color: #000;
+    p {
+      z-index: 9999;
+      position: absolute;
+      font-size: 9px;
+      padding: 0px 8px;
+      margin: 44px 0 0 0;
+    }
+}
+
+.occupied {
+	background: #428bca;
+	height: 100%;
+	position: relative;
+  color: #FFF !important;
+}
+
+.blocked {
+  background: grey;
+  height: 100%;
+  position: relative;
+  color: #FFFFFF !important;
+}
+
+.date-row {
+  padding: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  background: #f1f1f1;
+}
+
+.custom-calendar {
+  display: -webkit-box;
+  background: green;
+  margin-top: 15px;
+}
+
+.custom-day-hour {
+    height: 10px;
+    width: 4.18%;
+    padding: 0;
+    font-size: 10px;
+    color: #cecece;
+    border-right: 1px solid #FFF;
+}
+
+.custom-day-hour:hover {
+    height: 10px;
+    width: 4.18%;
+    padding: 0;
+    font-size: 10px;
+    color: #cecece;
+    background: #428bca;
+    border-right: 1px solid #FFF;
+}
+
+.hour-occupied {
+    background: #cecece;
+    height: 100%;
+    position: relative;
+}
+
+.hour-occupied:hover {
+    background: #428bca;
+    height: 100%;
+    position: relative;
+}

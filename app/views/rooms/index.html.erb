@@ -1,29 +1,43 @@
-<p id="notice"><%= notice %></p>
+<% title 'Admin - Listings' %>
+<% noindex %>
+<%= render 'layouts/header' %>
 
-<h1>Listing Rooms</h1>
-
-<table>
+<div class="subnav">
+  <ul class="subnav-list">
+    <div class="container">
+      <li><%= link_to "Bank Transfers", pending_transfers_path, class: "subnav-item zeroLeft" %></li>
+      <li><%= link_to "Bookings", bookings_path, class: "subnav-item" %></li>
+      <li><%= link_to "Listings", rooms_path, class: "subnav-item active" %></li>
+      <li><%= link_to "Images", uploads_path, class: "subnav-item" %></li>
+      <li><%= link_to "Users", users_path, class: "subnav-item" %></li>
+      <li><%= link_to "Areas", areas_path, class: "subnav-item" %></li>
+      <li><%= link_to "Locations", locations_path, class: "subnav-item" %></li>
+    </div>
+  </ul>
+</div>
+<div class="container">
+<div class="table-responsive">
+<table class="table table-bordered">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>#</th>
+      <th>Room</th>
       <th>Description</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @rooms.each do |room| %>
       <tr>
+        <td><%= room.id %></td>
         <td><%= room.name %></td>
-        <td><%= room.description %></td>
-        <td><%= link_to 'Show', room %></td>
+        <td><%= link_to room.title, room_path(room, start_date: Date.today, duration: 3) %></td>
         <td><%= link_to 'Edit', edit_room_path(room) %></td>
         <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Room', new_room_path %>
+</div>
+</div>

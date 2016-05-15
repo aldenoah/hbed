@@ -1,0 +1,74 @@
+<% title 'Bank Transfers - Confirmed Transfers' %>
+<% noindex %>
+<%= render 'layouts/header' %>
+
+<div class="subnav">
+  <ul class="subnav-list">
+    <div class="container">
+      <li><%= link_to "Bank Transfers", pending_transfers_path, class: "subnav-item zeroLeft active" %></li>
+      <li><%= link_to "Bookings", bookings_path, class: "subnav-item" %></li>
+      <li><%= link_to "Listings", rooms_path, class: "subnav-item" %></li>
+      <li><%= link_to "Images", uploads_path, class: "subnav-item" %></li>
+      <li><%= link_to "Users", users_path, class: "subnav-item" %></li>
+      <li><%= link_to "Areas", areas_path, class: "subnav-item" %></li>
+      <li><%= link_to "Countries", locations_path, class: "subnav-item" %></li>
+    </div>
+  </ul>
+</div>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-2">
+    <ul class="sidebar-list">
+      <li><%= link_to "Pending Transfers", pending_transfers_path %></li>
+      <li><%= link_to "Confirmed Transfers", confirmed_transfers_path, class: "active" %></li>
+    </ul>
+  </div>
+  <div class="col-md-10">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Confirmed Transfers</h3>
+    </div>
+    <div class="panel-body">
+    <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Room</th>
+          <th>Customer</th>
+          <th>Contact</th>
+          <th>Amount</th>
+          <th>Paid</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @bookings.each do |booking| %>
+          <tr>
+            <td><%= link_to booking.id, booking %></td>
+            <td>
+              <%= link_to booking.room_title, room_path(id: booking.room_id, start_date: Date.today, duration: 3) %>
+            </td>
+            <td>
+              <%= booking.first_name %> <%= booking.last_name %>
+            </td>
+            <td>
+              <%= booking.buyer.phone %>
+              <p><small><%= mail_to booking.buyer.email %></small></p>
+            </td>
+            <td>
+              <b><%= booking.service_fee.format(symbol_before_without_space: false) %></b>
+            </td>
+            <td><%= booking.paid %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+    
+  </div>
+</div>
+</div>
