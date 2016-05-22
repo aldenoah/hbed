@@ -8,16 +8,16 @@ class Room < ActiveRecord::Base
         :size => { :less_than => 1.megabyte }
 
   monetize :deposit_sens
-  monetize :price_per_three_hour_sens,
-    numericality: {
-      greater_than_or_equal_to: 40,
+  monetize :price_per_three_hour_sens#,
+    #numericality: {
+    #  greater_than_or_equal_to: 40,
       # less_than_or_equal_to: 10000
-    }
-  monetize :price_per_extra_hour_sens, :price_per_extra_guest_sens, 
-    numericality: {
-      greater_than_or_equal_to: 5,
+    #}
+  monetize :price_per_extra_hour_sens, :price_per_extra_guest_sens#, 
+    #numericality: {
+    #  greater_than_or_equal_to: 5,
       # less_than_or_equal_to: 50
-    }
+    #}
 
   belongs_to :area
 	belongs_to :user
