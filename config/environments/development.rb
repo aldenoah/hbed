@@ -47,4 +47,14 @@ Rails.application.configure do
     Bullet.rails_logger = true
     Bullet.airbrake = false
   end
+
+  config.paperclip_defaults = {
+      :storage => :s3,
+      :s3_host_name => 's3-ap-southeast-1.amazonaws.com',
+      :s3_credentials => {
+        :bucket => ENV["bucket"],
+        :access_key_id => ENV["access_key_id"],
+        :secret_access_key => ENV["secret_access_key"]
+      }
+    }
 end

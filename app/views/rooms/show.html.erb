@@ -16,58 +16,60 @@
 
 <div class="container">
 <div class="row">
-  <div class="col-md-8">
+  <div id="roomShow" class="col-md-8">
     <h1><%= @room.title %></h1>
 
     <p><%= "#{@room.district}, #{@room.area.name}, #{@room.area.location.name}" %></p>
+    
+    <div class="desktop-visible">
     <hr>
 
-    <strong>Description</strong>
-    <p class="text-area">
-      <%= @room.description %>
-    </p>
+      <strong>Description</strong>
+      <p class="text-area">
+        <%= @room.description %>
+      </p>
 
-    <hr>
-    <strong>Amenities</strong>
-    <table>
-      <tbody>
-        <tr>
-          <td>
-            <% if @room.free_wifi == true %>
-              <span class="glyphicon glyphicon-ok">
-            <% else %>
-              <span class="glyphicon glyphicon-remove">
-            <% end %></span>Free Wifi
-          </td>
-          <td>
-            <% if @room.restaurant == true %>
-              <span class="glyphicon glyphicon-ok">
-            <% else %>
-              <span class="glyphicon glyphicon-remove">
-            <% end %></span>Restaurant
-          </td>
-          <td>
-            <% if @room.free_parking == true %>
-              <span class="glyphicon glyphicon-ok">
-            <% else %>
-              <span class="glyphicon glyphicon-remove">
-            <% end %></span>Free Parking
-          </td>
-          <td>
-            <% if @room.bar == true %>
-              <span class="glyphicon glyphicon-ok">
-            <% else %>
-              <span class="glyphicon glyphicon-remove">
-            <% end %></span>Bar
-          </td>
-        </tr>
-       
-      </tbody>
-    </table>
-    <br>
-    <br>
-    <div id="map" class="map-container"></div>
-
+      <hr>
+      <strong>Amenities</strong>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <% if @room.free_wifi == true %>
+                <span class="glyphicon glyphicon-ok">
+              <% else %>
+                <span class="glyphicon glyphicon-remove">
+              <% end %></span>Free Wifi
+            </td>
+            <td>
+              <% if @room.restaurant == true %>
+                <span class="glyphicon glyphicon-ok">
+              <% else %>
+                <span class="glyphicon glyphicon-remove">
+              <% end %></span>Restaurant
+            </td>
+            <td>
+              <% if @room.free_parking == true %>
+                <span class="glyphicon glyphicon-ok">
+              <% else %>
+                <span class="glyphicon glyphicon-remove">
+              <% end %></span>Free Parking
+            </td>
+            <td>
+              <% if @room.bar == true %>
+                <span class="glyphicon glyphicon-ok">
+              <% else %>
+                <span class="glyphicon glyphicon-remove">
+              <% end %></span>Bar
+            </td>
+          </tr>
+         
+        </tbody>
+      </table>
+      <br>
+      <br>
+      <div id="map" class="map-container"></div>
+    </div>
 
   </div>
   <div class="col-md-4">
