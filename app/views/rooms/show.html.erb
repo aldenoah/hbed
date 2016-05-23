@@ -19,7 +19,7 @@
   <div id="roomShow" class="col-md-8">
     <h1><%= @room.title %></h1>
 
-    <p><%= "#{@room.district}, #{@room.area.name}, #{@room.area.location.name}" %></p>
+    <p><%= link_to "#{@room.district}, #{@room.area.name}, #{@room.area.location.name}", "http://maps.google.com/?q=#{@room.location}", target: "_blank" %></p>
     
     <div class="desktop-visible">
     <hr>
@@ -124,6 +124,9 @@
     </div>
   </div>
 </div>
+
+<%= render 'rooms/tabs' %>
+
 </div>
 
 <script>
@@ -265,3 +268,4 @@
   marker.setMap(null);
   });
 </script>
+

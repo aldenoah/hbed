@@ -68,6 +68,21 @@
     }
   }
 
+  .nav-tabs {
+    li {
+      a {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .tab-content {
+    font-size: 13px;
+    padding: 15px;
+    border-top: none;
+    border: 1px solid #ddd;
+  }
+
 
  
 
