@@ -19,7 +19,7 @@
   <div id="roomShow" class="col-md-8">
     <h1><%= @room.title %></h1>
 
-    <p><%= link_to "#{@room.district}, #{@room.area.name}, #{@room.area.location.name}", "http://maps.google.com/?q=#{@room.location}", target: "_blank" %></p>
+    <p><%= link_to "#{@room.location}", "http://www.google.com/maps/place/#{@room.latitude},#{@room.longitude}/@#{@room.latitude},#{@room.longitude},15z", target: "_blank" %></p>
     
     <div class="desktop-visible">
     <hr>
@@ -117,7 +117,7 @@
         <div class="form-group">
           <%= button_tag "Book this room", disabled: true, class: "btn btn-lg btn-danger full-width" %>
         </div>
-          <%= image_tag 'lock.png', class: "icon-sm" %> <small>Only signed in members can book rooms.</small>
+          <center><%= image_tag 'lock.png', class: "icon-sm" %> <small>Only signed in members can book rooms.</small></center>
         <% end %>
 
     <% end %>
