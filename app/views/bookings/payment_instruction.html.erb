@@ -27,6 +27,7 @@
         Transfer <b><%= "RM #{number_with_precision(params[:transfer], precision: 2)}" %></b> to our <b>Maybank Account</b> with 
         <%= link_to "Maybank2u", "http://www.maybank2u.com.my" %> or any Cash Deposit machine nearby.
       </p>
+      <div class="table-responsive">
       <table class="table table-bordered">
         <tbody>
           <tr class="active">
@@ -39,6 +40,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
       <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Tip:</b> write your name and phone number in the reference section to help us identify your transfer.</small>
       <hr>
       <p>
@@ -47,6 +49,7 @@
       <p>
         Take a picture of your receipt (or any proof of payment) with your phone and send it to us by whatsapp or email.
       </p>
+      <div class="table-responsive">
       <table class="table table-bordered">
         <tbody>
           <tr class="active">
@@ -59,19 +62,21 @@
           </tr>
         </tbody>
       </table>
+      </div>
       <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Fact:</b> complete everything within 1 hour so your booking will not be cancelled.</small>
       <hr>
       <p>
-        <b>STEP 3</b>
+        <b>FINAL STEP</b>
       </p>
       <p>
-        Once we have confirmed your payment, you'll receive an SMS and email from us with your booking confirmation. Done :)
+        Once we have confirmed your payment, you'll receive an SMS and email from us with your booking confirmation.
       </p>
       <p>
         Thank you and have a nice stay!
       </p>
       <br>
-      <p><%= link_to "FOLLOW US ON FACEBOOK", "https://www.facebook.com/hourbeds", target: '_blank', class: "btn btn-lg btn-primary full-width" %></p>
+      <p class="desktop-visible"><%= link_to "FOLLOW US ON FACEBOOK", "https://www.facebook.com/hourbeds", target: '_blank', class: "btn btn-lg btn-primary full-width" %></p>
+      <p class="mobile-visible"><%= link_to "FOLLOW US ON FB", "https://www.facebook.com/hourbeds", target: '_blank', class: "btn btn-lg btn-primary full-width" %></p>
       <%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Fact:</b> LIKE us to follow our news, events and special discounts.</small>
     </div>
   </div>

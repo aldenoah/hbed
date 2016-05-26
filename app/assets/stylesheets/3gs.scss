@@ -98,6 +98,29 @@
     }
   }
 
+  #navbar-book {
+    margin-bottom: 15px;
+  }
+
+  #bookInfo {
+    .col-md-4 {
+      padding-right: 0;
+    }
+    .col-md-8 {
+      padding-left: 0;
+    }
+    p {
+      font-size: 10px;
+    }
+    .final-price {
+      margin-bottom: 40px;
+    }
+    .radio.radio-inline {
+      display: table-cell;
+      font-size: 11px;
+    }
+  }
+
 
  
 

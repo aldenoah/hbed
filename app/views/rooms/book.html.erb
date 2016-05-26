@@ -8,7 +8,7 @@
     </div>
   </div>
 </nav>
-<div class="container">
+<div id="bookInfo" class="container">
   <div class="col-md-4 zeroLeft">
     <%= image_tag('bg.jpg') %>
     <div class="sidebar-wrapper">
@@ -33,7 +33,7 @@
           <td><p><small><i>* All price are tax included</i></small></p></td>
         </tr>
         <tr>
-          <td>Deposit on Arrival (Refundable)</p></td>
+          <td><p>Deposit on Arrival (Refundable)</p></td>
           <td class="text-right"><p><%= "#{@room.area.location.currency_symbol} #{@room.deposit}" %></td>
         </tr>
       </tbody>
@@ -95,7 +95,6 @@
       </div>
       -->
       <br>
-      <br>
       <h4>Payment Method</h4>
       <hr>
       <div class="radio radio-default radio-inline">
@@ -118,8 +117,6 @@
       <div id="bank-box">
          Click 'Confirm my booking' and we will take you to our Payment Instruction page. You are to transfer <b><%= "#{@room.area.location.currency_symbol} #{@pay_now}" %></b> to our <b>Maybank Account</b> and send us proof of payment to our email address or mobile number(Whatsapp). You must complete the payment instruction or the transaction will not occur.
       </div>
-
-      <br>
       
       <p>By confirming, you agree to the House Rules, Cancellation Policy, and the Guest Refund Policy.</p>
 
