@@ -1,4 +1,4 @@
-<div class="mobile-visible" role="tabpanel">
+<div id="roomTabs" class="mobile-visible" role="tabpanel">
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#Amenities" aria-controls="ongoing" role="tab" data-toggle="tab">Amenities</a></li>
     <li role="presentation"><a href="#About" aria-controls="complete" role="tab" data-toggle="tab">About</a></li>
@@ -6,7 +6,102 @@
 
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="Amenities">
-      
+      <div class="row">
+        <div class="col-xs-6">
+          <p><% if @room.free_wifi == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Wireless Internet</p>
+          <p><% if @room.free_airport_shuttle == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Airport Shuttle</p>
+          <p><% if @room.outdoor_pool == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Outdoor Pool</p>
+          <p><% if @room.restaurant == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Restaurant</p>
+          <p><% if @room.beauty_center == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Beauty Center</p>
+          <p><% if @room.massage == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Massage</p>
+          <p><% if @room.balcony == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Balcony</p>
+          <p><% if @room.jacuzzi == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Jacuzzi</p>      
+        </div>
+        <div class="col-xs-6">
+          <p><% if @room.free_parking == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Parking Facilities</p>
+          <p><% if @room.meeting_rooms == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Meeting Rooms</p>
+          <p><% if @room.indoor_pool == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Indoor Pool</p>
+          <p><% if @room.bar == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Bar</p>
+          <p><% if @room.sauna == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Sauna</p>
+          <p><% if @room.spa == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Spa</p>
+          <p><% if @room.kitchen == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Kitchen</p>
+        </div>
+      </div>
     </div>
     
     <div role="tabpanel" class="tab-pane" id="About">

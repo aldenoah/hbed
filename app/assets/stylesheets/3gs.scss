@@ -76,12 +76,26 @@
     }
   }
 
-  .tab-content {
-    font-size: 13px;
-    padding: 15px;
-    border-top: none;
-    border: 1px solid #ddd;
-    background: #FFF;
+  #roomTabs {
+    .tab-content {
+      font-size: 13px;
+      padding: 15px;
+      border-top: none;
+      border: 1px solid #ddd;
+      background: #FFF;
+    }
+  }
+
+  #Amenities {
+    .glyphicon-ok {
+      margin: 10px 5px 0 0 !important;
+    }
+    .glyphicon-remove {
+      margin: 10px 5px 0 0 !important;
+    }
+    p {
+      font-size: 10px;
+    }
   }
 
 

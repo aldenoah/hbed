@@ -19,7 +19,8 @@
   <div id="roomShow" class="col-md-8">
     <h1><%= @room.title %></h1>
 
-    <p><%= link_to "#{@room.location}", "http://www.google.com/maps/place/#{@room.latitude},#{@room.longitude}/@#{@room.latitude},#{@room.longitude},15z", target: "_blank" %></p>
+    <p class="desktop-visible"><%= "#{@room.location}" %></p>
+    <p class="mobile-visible"><%= link_to "Get direction and location on map", "http://www.google.com/maps/place/#{@room.latitude},#{@room.longitude}/@#{@room.latitude},#{@room.longitude},15z", target: "_blank" %></p>
     
     <div class="desktop-visible">
     <hr>
@@ -31,42 +32,111 @@
 
       <hr>
       <strong>Amenities</strong>
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <% if @room.free_wifi == true %>
-                <span class="glyphicon glyphicon-ok">
-              <% else %>
-                <span class="glyphicon glyphicon-remove">
-              <% end %></span>Free Wifi
-            </td>
-            <td>
-              <% if @room.restaurant == true %>
-                <span class="glyphicon glyphicon-ok">
-              <% else %>
-                <span class="glyphicon glyphicon-remove">
-              <% end %></span>Restaurant
-            </td>
-            <td>
-              <% if @room.free_parking == true %>
-                <span class="glyphicon glyphicon-ok">
-              <% else %>
-                <span class="glyphicon glyphicon-remove">
-              <% end %></span>Free Parking
-            </td>
-            <td>
-              <% if @room.bar == true %>
-                <span class="glyphicon glyphicon-ok">
-              <% else %>
-                <span class="glyphicon glyphicon-remove">
-              <% end %></span>Bar
-            </td>
-          </tr>
+      <div class="row">
+        <div class="col-md-3">
+          <p><% if @room.free_wifi == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Wireless Internet</p>
+          <p><% if @room.outdoor_pool == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Outdoor Pool</p>
+          <p><% if @room.beauty_center == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Beauty Center</p>
+          <p><% if @room.balcony == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Balcony</p>
+        </div>
+        <div class="col-md-3">
+          <p><% if @room.free_parking == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Parking Facilities</p>
+          <p><% if @room.indoor_pool == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Indoor Pool</p>
+          <p><% if @room.sauna == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Sauna</p>
+          <p><% if @room.kitchen == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Kitchen</p>
+        </div>
+        <div class="col-md-3">
+          <p><% if @room.free_airport_shuttle == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Airport Shuttle</p>
+          <p><% if @room.restaurant == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Restaurant</p>
+          <p><% if @room.massage == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Massage</p>
+          <p><% if @room.jacuzzi == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Jacuzzi</p>          
+        </div>
+        <div class="col-md-3">
+          <p><% if @room.meeting_rooms == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Meeting Rooms</p>
+          <p><% if @room.bar == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Bar</p>
+          <p><% if @room.spa == true %>
+            <span class="glyphicon glyphicon-ok"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+            Spa</p>
+        </div>
+      </div>
+            
+
+     
          
-        </tbody>
-      </table>
-      <br>
+       
       <br>
       <div id="map" class="map-container"></div>
     </div>
