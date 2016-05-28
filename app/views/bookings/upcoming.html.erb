@@ -2,7 +2,7 @@
 <% noindex %>
 <%= render 'layouts/header' %>
 
-<div class="subnav">
+<div class="subnav desktop-visible">
   <ul class="subnav-list">
     <div class="container">
       <li><%= link_to "Your Guests", reservations_path, class: "subnav-item zeroLeft" %></li>
@@ -13,9 +13,24 @@
   </ul>
 </div>
 
+<div id="mobile-subnav" class="mobile-visible">
+  <ul class="nav navbar-nav">
+    <li>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        Your Staycations <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu" role="menu">
+        <li><%= link_to "Upcoming", upcoming_path %></li>
+        <li><%= link_to "Departed", departed_path %></li>
+        <li><%= link_to "Cancelled", cancelled_path %></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
 <div class="container">
 <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-2 desktop-visible">
     <ul class="sidebar-list">
       <li><%= link_to "Upcoming", upcoming_path, class: "active" %></li>
       <li><%= link_to "Departed", departed_path %></li>

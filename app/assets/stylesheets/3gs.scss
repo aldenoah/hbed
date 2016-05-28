@@ -121,6 +121,30 @@
     }
   }
 
+  #mobile-subnav {
+    text-align: center;
+    background: #565A5C;
+    margin: 0 0 20px 0;
+    .navbar-nav {
+      margin: 0;
+      a {
+      text-align: center;
+      color: #FFF;
+      background: #333;
+      padding: 10px;
+      }
+      a:hover {
+        background: #333;
+      }
+    }
+    .navbar-nav .open .dropdown-menu {
+      border-top: 1px solid grey;
+    }
+  }
+
+ 
+  
+
 
  
 
@@ -156,7 +180,7 @@
     }
     .hero-title {
       color: #FFF;
-      font-size: 22px;
+      font-size: 25px;
       font-weight: bold;
       margin: auto;
       margin-bottom: 10px;
