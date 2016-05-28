@@ -158,21 +158,21 @@
       <div class="row">
         <div class="col-xs-6 padRight-5">
           <label>Start date</label>
-          <%= text_field_tag :date, params[:date], placeholder: "Select Date", value: params[:start_date], id: "date_select", class: "form-input marBot-15 noBor datepicker1" %>
+          <%= text_field_tag :date, params[:date], placeholder: "Select Date", value: params[:start_date], id: "date_select", class: "form-control marBot-15 noBor datepicker1" %>
         </div>
         <div class="col-xs-6 padLeft-5">
           <label>Duration</label>
-          <%= select_tag :hour, options_for_select(Area::DURATION_SELECT, params[:duration]), include_blank: false, id: "duration_select", class: "form-input marBot-15 noBor select-fix" %>
+          <%= select_tag :hour, options_for_select(Area::DURATION_SELECT, params[:duration]), include_blank: false, id: "duration_select", class: "form-control marBot-15 noBor" %>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-6 padRight-5">
           <label>Check in</label>
-          <%= select_tag :check_in, options_for_select(Hash[@timeslot_select.zip(@timeslots)], disabled: @result), prompt: "Select time", id:"time_select", class: "form-input marBot-15 noBor select-fix" %>
+          <%= select_tag :check_in, options_for_select(Hash[@timeslot_select.zip(@timeslots)], disabled: @result), prompt: "Select time", id:"time_select", class: "form-control marBot-15 noBor" %>
         </div>
         <div class="col-xs-6 padLeft-5">
           <label>Guests</label>
-          <%= select_tag :guest, options_for_select((1..5).step(1).to_a.map{|s| ["#{s}", s]}, 2), id: "guest", class: "form-input marBot-15 noBor select-fix" %>
+          <%= select_tag :guest, options_for_select((1..5).step(1).to_a.map{|s| ["#{s}", s]}, 2), id: "guest", class: "form-control marBot-15 noBor select-fix" %>
         </div>
       </div>
       <div id="extra_person">0</div>
