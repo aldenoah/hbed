@@ -71,11 +71,10 @@
           <p><small><b><%= booking.booking_code %></b></small></p>
           <p><%= "buyer_id: #{booking.buyer_id}" %></p>
         </td>
-        <td><%= booking.total.format(symbol_before_without_space: false) %></td>
+        <td><%= booking.total.format(symbol_before_without_space: false) %><p><small><%= booking.payment_method %></small></p></td>
         <td><%= booking.subtotal.format(symbol_before_without_space: false) %></td>
         <td>
           <b><%= booking.service_fee.format(symbol_before_without_space: false) %></b>
-          <p><small><%= booking.payment_method %></small></p>
         </td>
         <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
         <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>

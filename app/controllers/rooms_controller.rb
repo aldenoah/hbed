@@ -51,21 +51,21 @@ class RoomsController < ApplicationController
       search = search.located_at(params[:area]) if params[:area].present?
       search = search.districted_at(params[:district]) if params[:district].present?
       search = search.with_restaurant if params[:restaurant].present?
-      #search = search.with_bar if params[:bar].present?
-      #search = search.with_balcony if params[:balcony].present?
+      search = search.with_bar if params[:bar].present?
+      search = search.with_balcony if params[:balcony].present?
       search = search.with_free_wifi if params[:free_wifi].present?
       search = search.with_free_parking if params[:free_parking].present?
       search = search.with_free_airport_shuttle if params[:free_airport_shuttle].present?
-      #search = search.with_meeting_rooms if params[:meeting_rooms].present?
+      search = search.with_meeting_rooms if params[:meeting_rooms].present?
       search = search.with_outdoor_pool if params[:outdoor_pool].present?
-      #search = search.with_indoor_pool if params[:indoor_pool].present?
+      search = search.with_indoor_pool if params[:indoor_pool].present?
       search = search.with_spa if params[:spa].present?
-      #search = search.with_beauty_center if params[:beauty_center].present?
+      search = search.with_beauty_center if params[:beauty_center].present?
       search = search.with_fitness_room if params[:fitness_room].present?
-      #search = search.with_massage if params[:massage].present?
-      #search = search.with_sauna if params[:sauna].present?
+      search = search.with_massage if params[:massage].present?
+      search = search.with_sauna if params[:sauna].present?
       search = search.with_jacuzzi if params[:jacuzzi].present?
-      #search = search.with_kitchen if params[:kitchen].present?
+      search = search.with_kitchen if params[:kitchen].present?
       search = search.ransack(params[:q])
       @rooms = search.result(distinct: true).order('price_per_three_hour_sens ASC')
     else
@@ -166,11 +166,11 @@ class RoomsController < ApplicationController
   ### Members Area ###
 
   def listings
-    @rooms = Room.where(active: true)
+    @rooms = Room.where(user_id: current_user.id, active: true)
   end
 
   def inactive_listings
-    @rooms = Room.where(active: false)
+    @rooms = Room.where(user_id: current_user.id, active: false)
   end
 
   def update_listing_status

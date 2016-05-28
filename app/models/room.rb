@@ -68,7 +68,7 @@ class Room < ActiveRecord::Base
   #end
 
   def self.timeslots_for(date)
-    (Date.parse(date).beginning_of_day.to_i..Date.parse(date).end_of_day.to_i).to_a.in_groups_of(60.minutes).collect(&:first).collect { |t| Time.at(t).utc }
+    ((Date.parse(date).beginning_of_day + 0.hour).to_i..Date.parse(date).end_of_day.to_i).to_a.in_groups_of(60.minutes).collect(&:first).collect { |t| Time.at(t).utc }
   end
 
   #def self.timeslot_select(date, duration)
@@ -76,7 +76,7 @@ class Room < ActiveRecord::Base
   #end
 
   def self.timeslot_select(date)
-    (Date.parse(date).beginning_of_day.to_i..Date.parse(date).end_of_day.to_i).to_a.in_groups_of(60.minutes).collect(&:first).collect { |t| Time.at(t).utc.strftime("%l:%M %p") }
+    ((Date.parse(date).beginning_of_day + 0.hour).to_i..Date.parse(date).end_of_day.to_i).to_a.in_groups_of(60.minutes).collect(&:first).collect { |t| Time.at(t).utc.strftime("%l:%M %p") }
   end
 
   def available?(date, duration)

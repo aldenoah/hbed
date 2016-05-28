@@ -115,7 +115,7 @@ class BookingsController < ApplicationController
     respond_to do |format|
       if @booking.save
         if @booking.payment_method == "Bank Transfer"
-          format.html { redirect_to payment_instruction_url(transfer: @booking.service_fee) }
+          format.html { redirect_to payment_instruction_url(transfer: @booking.total) }
           #send_message("+60138810882", "[HB][##{@booking.id}] Brace yourself for RM#{@booking.service_fee} bank transfer from #{@booking.first_name}(#{@booking.phone}). Visit HourBeds.com for more info")
         elsif @booking.payment_method == "Block"
           format.html { redirect_to calendar_url(room, start_date: @booking.start_date) }

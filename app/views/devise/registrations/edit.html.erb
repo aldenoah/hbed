@@ -5,10 +5,15 @@
 <div class="subnav desktop-visible">
   <ul class="subnav-list">
     <div class="container">
-      <li><%= link_to "Your Guests", reservations_path, class: "subnav-item zeroLeft" %></li>
-      <li><%= link_to "Your Listings", listings_path, class: "subnav-item" %></li>
-      <li><%= link_to "Your Staycations", upcoming_path, class: "subnav-item" %></li>
-      <li><%= link_to "Your Account", edit_user_path(current_user), class: "subnav-item active" %></li>
+      <% if current_user.host? || current_user.admin? %>
+        <li><%= link_to "Your Guests", reservations_path, class: "subnav-item zeroLeft" %></li>
+        <li><%= link_to "Your Listings", listings_path, class: "subnav-item" %></li>
+        <li><%= link_to "Your Staycations", upcoming_path, class: "subnav-item" %></li>
+        <li><%= link_to "Your Account", edit_user_path(current_user), class: "subnav-item active" %></li>
+      <% else %>
+        <li><%= link_to "Your Staycations", upcoming_path, class: "subnav-item zeroLeft" %></li>
+        <li><%= link_to "Your Account", edit_user_path(current_user), class: "subnav-item active" %></li>
+      <% end %>
     </div>
   </ul>
 </div>

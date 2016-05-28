@@ -252,3 +252,53 @@
   });
 </script>
 
+<script>
+  $(document).ready(function () {
+  /**
+   * Draw points and radius (in kilometer) in map.
+   */
+  var points = [
+      {
+          point: new google.maps.LatLng(gon.latitude, gon.longitude),
+          //add radius/color attribute to set custom radius/color
+          //radius: 2,
+          //color '#CCCCCC',
+      }
+  ];
+
+  var zoom = 15;
+  var DEFAULT_COLOR = '#428bca';
+  var DEFAULT_RADIUS = 0.1; //Kilometers
+  var map;
+  var elevator;
+  var mapOptions = {
+      zoom: zoom,
+      navigationControl: false, 
+      streetViewControl: false,
+      mapTypeControl: false,
+      center: points[0].point,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+  };
+  map = new google.maps.Map($('#map')[0], mapOptions);
+  for (var i = 0; i < points.length; i++){
+      var point = points[i];
+      var marker = new google.maps.Marker({
+          map: map,
+          position: point.point,
+          title: i.toString()
+      });
+      var circle = new google.maps.Circle({
+          map: map,
+          fillOpacity: 0.4,
+          strokeColor: "#428bca",
+          radius: (point.radius !== undefined ? point.radius : DEFAULT_RADIUS) * 1000,    // metres
+          fillColor: (point.color !== undefined ? point.color : DEFAULT_COLOR)
+      });
+      circle.bindTo('center', marker, 'position');
+  }
+  marker.setMap(null);
+  });
+</script>
+
+
+

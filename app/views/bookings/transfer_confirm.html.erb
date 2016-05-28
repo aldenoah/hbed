@@ -77,7 +77,7 @@
               <p><small><%= mail_to booking.buyer.email %></small></p>
             </td>
             <td>
-              <b><%= booking.service_fee.format(symbol_before_without_space: false) %></b>
+              <b><%= booking.total.format(symbol_before_without_space: false) %></b>
             </td>
             <td><%= booking.paid %></td>
           </tr>

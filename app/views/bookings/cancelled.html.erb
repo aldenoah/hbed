@@ -5,10 +5,15 @@
 <div class="subnav desktop-visible">
   <ul class="subnav-list">
     <div class="container">
-      <li><%= link_to "Your Guests", reservations_path, class: "subnav-item zeroLeft" %></li>
-      <li><%= link_to "Your Listings", listings_path, class: "subnav-item" %></li>
-      <li><%= link_to "Your Staycations", upcoming_path, class: "subnav-item active" %></li>
-      <li><%= link_to "Your Account", edit_user_path(current_user), class: "subnav-item" %></li>
+      <% if current_user.host? || current_user.admin? %>
+        <li><%= link_to "Your Guests", reservations_path, class: "subnav-item zeroLeft" %></li>
+        <li><%= link_to "Your Listings", listings_path, class: "subnav-item" %></li>
+        <li><%= link_to "Your Staycations", upcoming_path, class: "subnav-item active" %></li>
+        <li><%= link_to "Your Account", edit_user_path(current_user), class: "subnav-item" %></li>
+      <% else %>
+        <li><%= link_to "Your Staycations", upcoming_path, class: "subnav-item active zeroLeft" %></li>
+        <li><%= link_to "Your Account", edit_user_path(current_user), class: "subnav-item" %></li>
+      <% end %>
     </div>
   </ul>
 </div>
@@ -68,7 +73,7 @@
                   <b><%= booking.booking_code %></b>
                 </td>
                 <td>
-                  <b><%= booking.subtotal.format(symbol_before_without_space: false) %></b>
+                  <b><%= booking.total.format(symbol_before_without_space: false) %></b>
                   <p><small>DEP: RM 100.00</small></p>
                 </td>
                 <td><%= booking.status %></td>
