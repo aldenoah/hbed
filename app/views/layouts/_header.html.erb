@@ -13,7 +13,20 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right mobile-visible">
+        <% if user_signed_in? %>
+          <li><%= link_to "Site Manager", pending_transfers_path if current_user.admin? %></li>
+          <li><%= link_to "Your Guests", reservations_path %></li>
+          <li><%= link_to "Your Staycations", upcoming_path%></li>
+          <li><%= link_to "Your Account", edit_user_path(current_user) %></li>
+          <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Register", new_user_registration_path %></li>
+          <li><%= link_to "Log In", new_user_session_path%></li>
+        <% end %>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right desktop-visible">
         <% if user_signed_in? %>
           <li><%= link_to "SITE MANAGER", pending_transfers_path if current_user.admin? %></li>
           <li><%= link_to "MEMBER", reservations_path %></li>
@@ -25,7 +38,7 @@
               <li><%= link_to "Your Guests", reservations_path %></li>
               <li><%= link_to "Your Staycations", upcoming_path%></li>
               <li><%= link_to "Your Account", edit_user_path(current_user) %></li>
-              <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+              <li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
             </ul>
           </li>
         <% else %>
