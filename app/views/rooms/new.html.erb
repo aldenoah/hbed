@@ -29,10 +29,14 @@
         <span class="float-right">Photos</span>
       </li>
     </ul>
+    <br>
   </div>
   <div class="col-md-6">
   <%= simple_form_for(@room) do |f| %>
     <%= f.error_notification %>
+    <div class="form-group">
+      <%= f.input :premise_name, required: true, label: "What is your business name?", placeholder: "i.e: Sunset Hotel, Happy Hotel, etc.", input_html: {class: "form-control"} %>
+    </div>
     <div class="form-group">
       <%= f.input :name, required: true, label: "Give your room a name (or a number)", placeholder: "i.e: Room 101, Rafflesia, Sarah, etc.", input_html: {class: "form-control"} %>
       <div class="marTop-10"><%= image_tag 'lightbulb.png', class: "icon-sm" %> <small><b>Tip:</b> only you can see this name.</small></div>

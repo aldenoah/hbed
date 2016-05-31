@@ -198,6 +198,9 @@
           <%= simple_form_for(@room) do |f| %>
             <%= f.error_notification %>
             <div class="form-group">
+              <%= f.input :premise_name, label: "Business Name", placeholder: "Enter your business name", input_html: {class: "form-control"} %>
+            </div>
+            <div class="form-group">
               <%= f.association :area, label: "City / Area", prompt: "Select city/area", disabled: true, input_html: {class: "form-control"} %>
             </div>
             <div class="form-group">

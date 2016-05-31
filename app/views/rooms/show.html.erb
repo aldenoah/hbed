@@ -19,8 +19,8 @@
   <div id="roomShow" class="col-md-8">
     <h1><%= @room.title %></h1>
 
-    <p class="desktop-visible"><%= "#{@room.location}" %></p>
-    <p class="mobile-visible"><%= link_to "Get direction and location on map", "http://www.google.com/maps/place/#{@room.latitude},#{@room.longitude}/@#{@room.latitude},#{@room.longitude},15z", target: "_blank" %></p>
+    <p class="desktop-visible"><%= "#{@room.premise_name} · #{@room.location}" %></p>
+    <p class="mobile-visible"><%= @room.premise_name %> · <%= link_to "Get Direction", "http://www.google.com/maps/place/#{@room.latitude},#{@room.longitude}/@#{@room.latitude},#{@room.longitude},15z", target: "_blank" %></p>
     
     <div class="desktop-visible">
     <hr>

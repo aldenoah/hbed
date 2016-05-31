@@ -314,7 +314,7 @@ class RoomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
-      params.fetch(:room, {}).permit(:cover, :name, :title, :description, :booking_start, :booking_end, :active, 
+      params.fetch(:room, {}).permit(:cover, :name, :title, :description, :premise_name, :book_start, :book_end, :active, 
                                    :location, :latitude, :longitude, :district, :area_id, :direction, :user_id, 
                                    :deposit, :room_type, :price_per_three_hour, :price_per_three_hour_currency, 
                                    :price_per_extra_hour, :price_per_extra_hour_currency, :price_per_extra_guest,

@@ -29,6 +29,7 @@
         <span class="float-right">Photos</span>
       </li>
     </ul>
+    <br>
   </div>
   <div class="col-md-6">
     <%= simple_form_for @room, url: wizard_path do |f| %>
@@ -44,19 +45,71 @@
       <br>
       <label>Amenities & Facilities</label>
       <div class="amenities-wrapper">
-      <div class="checkbox checkbox-success">
-        <%= f.check_box :free_wifi %>
-        <label>Free Wifi</label>
-      </div>
-
-      <div class="checkbox checkbox-success">
-        <%= f.check_box :outdoor_pool %>
-        <label>Swimming Pool</label>
-      </div>
-
-      <div class="checkbox checkbox-success">
-        <%= f.check_box :free_parking %>
-        <label>Free Parking</label>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :free_wifi, params[:free_wifi], params[:free_wifi] %>
+            <label>Wireless Internet</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :free_airport_shuttle, params[:free_airport_shuttle], params[:free_airport_shuttle] %>
+            <label>Airport Shuttle</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :outdoor_pool, params[:outdoor_pool], params[:outdoor_pool] %>
+            <label>Outdoor Pool</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :restaurant, params[:restaurant], params[:restaurant] %>
+            <label>Restaurant</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :beauty_center, params[:beauty_center], params[:beauty_center] %>
+            <label>Beauty Center</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :massage, params[:massage], params[:massage] %>
+            <label>Massage</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :balcony, params[:balcony], params[:balcony] %>
+            <label>Balcony</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :jacuzzi, params[:jacuzzi], params[:jacuzzi] %>
+            <label>Jacuzzi</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :free_parking, params[:free_parking], params[:free_parking] %>
+            <label>Parking Facilities</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :meeting_rooms, params[:meeting_rooms], params[:meeting_rooms] %>
+            <label>Meeting Rooms</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :indoor_pool, params[:indoor_pool], params[:indoor_pool] %>
+            <label>Indoor Pool</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :bar, params[:bar], params[:bar] %>
+            <label>Bar</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :sauna, params[:sauna], params[:sauna] %>
+            <label>Sauna</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :spa, params[:spa], params[:spa] %>
+            <label>Spa</label>
+          </div>
+          <div class="checkbox checkbox-success">
+            <%= check_box_tag :kitchen, params[:kitchen], params[:kitchen] %>
+            <label>Kitchen</label>
+          </div>
+        </div>
       </div>
       </div>
       <hr>

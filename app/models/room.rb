@@ -1,7 +1,7 @@
 class Room < ActiveRecord::Base
   has_attached_file :cover, :styles => { :medium => "300x300>",:thumb => "100x100>" }, :default_url => "no-image.jpg"
   
-  validates :name, :district, :location, :area_id, presence: true
+  validates :name, :premise_name, :district, :location, :area_id, presence: true
   #validates_presence_of :title, :description, :on => [:update] 
   validates_attachment  :cover, 
         :content_type => { :content_type => /\Aimage\/.*\Z/ },

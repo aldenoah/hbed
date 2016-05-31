@@ -115,13 +115,13 @@ class BookingsController < ApplicationController
     respond_to do |format|
       if @booking.save
         if @booking.payment_method == "Bank Transfer"
+          #send_message("+15005550006", "[HB][##{@booking.id}] Brace yourself for RM#{@booking.service_fee} bank transfer from #{@booking.first_name}(#{@booking.phone}). Visit HourBeds.com for more info")
           format.html { redirect_to payment_instruction_url(transfer: @booking.total) }
-          #send_message("+60138810882", "[HB][##{@booking.id}] Brace yourself for RM#{@booking.service_fee} bank transfer from #{@booking.first_name}(#{@booking.phone}). Visit HourBeds.com for more info")
         elsif @booking.payment_method == "Block"
           format.html { redirect_to calendar_url(room, start_date: @booking.start_date) }
         else
-          format.html { redirect_to booking_url(@booking), notice: 'Booking was successfully created.' }
-          #send_message("+15005550001", "You got a #{@booking.duration} hour reservation for #{@booking.room_name.truncate(20)} (#{@booking.check_in.strftime("%b %d, %Y - %l:%M %p")}). Visit HourBeds.com for more info")
+          #format.html { redirect_to booking_url(@booking), notice: 'Booking was successfully created.' }
+          send_message("+15005550006", "You got a #{@booking.duration} hour reservation for #{@booking.room_name.truncate(20)} (#{@booking.check_in.strftime("%b %d, %Y - %l:%M %p")}). Visit HourBeds.com for more info")
         end
         format.json { render :show, status: :created, location: @booking }
       else
