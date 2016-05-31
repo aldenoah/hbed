@@ -121,7 +121,7 @@ class BookingsController < ApplicationController
           format.html { redirect_to calendar_url(room, start_date: @booking.start_date) }
         else
           #format.html { redirect_to booking_url(@booking), notice: 'Booking was successfully created.' }
-          send_message("+15005550006", "You got a #{@booking.duration} hour reservation for #{@booking.room_name.truncate(20)} (#{@booking.check_in.strftime("%b %d, %Y - %l:%M %p")}). Visit HourBeds.com for more info")
+          #send_message("+15005550006", "You got a #{@booking.duration} hour reservation for #{@booking.room_name.truncate(20)} (#{@booking.check_in.strftime("%b %d, %Y - %l:%M %p")}). Visit HourBeds.com for more info")
         end
         format.json { render :show, status: :created, location: @booking }
       else
