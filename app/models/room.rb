@@ -1,5 +1,6 @@
 class Room < ActiveRecord::Base
-  has_attached_file :cover, :styles => { :medium => "300x300>",:thumb => "100x100>" }, :default_url => "no-image.jpg"
+  has_attached_file :cover, :styles => { :medium => "300x300>",:thumb => "100x100>" }, :s3_protocol => :https, :default_url => "no-image.jpg"
+
   
   validates :name, :premise_name, :district, :location, :area_id, presence: true
   #validates_presence_of :title, :description, :on => [:update] 
@@ -48,6 +49,12 @@ class Room < ActiveRecord::Base
 
   #scope :less_than, -> (max_price) { where('price_per_three_hour <= ?', max_price )}
   #scope :more_than, -> (min_price) { where('price_per_three_hour >= ?', min_price )}
+  HOUR_SELECT = [ ["12:00 AM", "0"], ["1:00 AM", "1"], ["2:00 AM", "2"], ["3:00 AM", "3"], ["4:00 AM", "4"],
+                  ["5:00 AM", "5"], ["6:00 AM", "6"], ["7:00 AM", "7"], ["8:00 AM", "8"], ["9:00 AM", "9"], 
+                  ["10:00 AM", "10"], ["11:00 AM", "11"], ["12:00 PM", "12"], ["1:00 PM", "13"], ["2:00 PM", "14"], 
+                  ["3:00 PM", "15"], ["4:00 PM", "16"], ["5:00 PM", "17"], ["6:00 PM", "18"], ["7:00 PM", "19"], 
+                  ["8:00 PM", "20"], ["9:00 PM", "21"], ["10:00 PM", "22"], ["11:00 PM", "23"] 
+                ]
 
   def self.district(area)
     where(area_id: area).pluck(:district).uniq.sort_by!{ |d| d }
@@ -67,16 +74,16 @@ class Room < ActiveRecord::Base
   #  (Date.parse(date).beginning_of_day.to_i..(Date.parse(date).end_of_day - duration.to_i.hour + 1.second).to_i).to_a.in_groups_of(60.minutes).collect(&:first).collect { |t| Time.at(t).utc }
   #end
 
-  def self.timeslots_for(date)
-    ((Date.parse(date).beginning_of_day + 0.hour).to_i..Date.parse(date).end_of_day.to_i).to_a.in_groups_of(60.minutes).collect(&:first).collect { |t| Time.at(t).utc }
+  def self.timeslots_for(date, start_hour, end_hour)
+    ((Date.parse(date).beginning_of_day + start_hour.hour).to_i..(Date.parse(date).beginning_of_day + end_hour.hour).to_i).to_a.in_groups_of(60.minutes).collect(&:first).collect { |t| Time.at(t).utc }
   end
 
   #def self.timeslot_select(date, duration)
   #  (Date.parse(date).beginning_of_day.to_i..(Date.parse(date).end_of_day - duration.to_i.hour + 1.second).to_i).to_a.in_groups_of(60.minutes).collect(&:first).collect { |t| Time.at(t).utc.strftime("%l:%M %p") }
   #end
 
-  def self.timeslot_select(date)
-    ((Date.parse(date).beginning_of_day + 0.hour).to_i..Date.parse(date).end_of_day.to_i).to_a.in_groups_of(60.minutes).collect(&:first).collect { |t| Time.at(t).utc.strftime("%l:%M %p") }
+  def self.timeslot_select(date, start_hour, end_hour)
+    ((Date.parse(date).beginning_of_day + start_hour.hour).to_i..(Date.parse(date).beginning_of_day + end_hour.hour).to_i).to_a.in_groups_of(60.minutes).collect(&:first).collect { |t| Time.at(t).utc.strftime("%l:%M %p") }
   end
 
   def available?(date, duration)

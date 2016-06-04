@@ -95,8 +95,8 @@ class RoomsController < ApplicationController
     next_day = (params[:start_date].to_datetime + 1.day).to_date
     bookings = room_bookings.where('start_date = ? OR start_date =?', params[:start_date], next_day)
     
-    @timeslots = Room.timeslots_for(params[:start_date]) #Room.timeslots_for(params[:start_date])
-    @timeslot_select = Room.timeslot_select(params[:start_date]) #Room.timeslot_select(params[:start_date])
+    @timeslots = Room.timeslots_for(params[:start_date], @room.book_start, @room.book_end) #Room.timeslots_for(params[:start_date])
+    @timeslot_select = Room.timeslot_select(params[:start_date], @room.book_start, @room.book_end) #Room.timeslot_select(params[:start_date])
 
     @result = []
 
@@ -123,8 +123,8 @@ class RoomsController < ApplicationController
     next_day = (params[:start_date].to_datetime + 1.day).to_date
     bookings = room_bookings.where('start_date = ? OR start_date =?', params[:start_date], next_day)
 
-    @timeslots = Room.timeslots_for(params[:start_date])
-    @timeslot_select = Room.timeslot_select(params[:start_date])
+    @timeslots = Room.timeslots_for(params[:start_date], @room.book_start, @room.book_end)
+    @timeslot_select = Room.timeslot_select(params[:start_date], @room.book_start, @room.book_end)
 
     @result = []
 
@@ -143,8 +143,8 @@ class RoomsController < ApplicationController
     next_day = (params[:start_date].to_datetime + 1.day).to_date
     bookings = room_bookings.where('start_date = ? OR start_date =?', params[:start_date], next_day)
 
-    @timeslots = Room.timeslots_for(params[:start_date])
-    @timeslot_select = Room.timeslot_select(params[:start_date])
+    @timeslots = Room.timeslots_for(params[:start_date], @room.book_start, @room.book_end)
+    @timeslot_select = Room.timeslot_select(params[:start_date], @room.book_start, @room.book_end)
 
     @result_next = []
 
@@ -200,8 +200,8 @@ class RoomsController < ApplicationController
       gon.longitude = @room.longitude
       gon.price_per_extra_hour = @room.price_per_extra_hour_sens
 
-      @timeslots = Room.timeslots_for(params[:start_date]) #Room.timeslots_for(params[:start_date])
-      @timeslot_select = Room.timeslot_select(params[:start_date]) #Room.timeslot_select(params[:start_date])
+      @timeslots = Room.timeslots_for(params[:start_date], @room.book_start, @room.book_end) #Room.timeslots_for(params[:start_date])
+      @timeslot_select = Room.timeslot_select(params[:start_date], @room.book_start, @room.book_end) #Room.timeslot_select(params[:start_date])
     end
     #@result = []
 
@@ -226,8 +226,8 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
-    @timeslot_select = Room.timeslot_select(Date.today.to_s) #Room.timeslot_select(params[:start_date])
-    @timeslots = Room.timeslots_for(Date.today.to_s)
+    @timeslot_select = Room.timeslot_select(Date.today.to_s, 0, 23) #Room.timeslot_select(params[:start_date])
+    @timeslots = Room.timeslots_for(Date.today.to_s, 0, 23)
 
     @bookings = Booking.where(room_id: @room.id)
     @blocks = Booking.where(room_id: @room.id, payment_method: "Block")
@@ -240,8 +240,8 @@ class RoomsController < ApplicationController
   end
 
   def calendar
-    @timeslot_select = Room.timeslot_select(Date.today.to_s) #Room.timeslot_select(params[:start_date])
-    @timeslots = Room.timeslots_for(Date.today.to_s)
+    @timeslot_select = Room.timeslot_select(Date.today.to_s, 0, 23) #Room.timeslot_select(params[:start_date])
+    @timeslots = Room.timeslots_for(Date.today.to_s, 0, 23)
 
     @bookings = Booking.where(room_id: @room.id)
     @blocks = Booking.where(room_id: @room.id, payment_method: "Block")

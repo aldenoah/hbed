@@ -1,5 +1,5 @@
 class Upload < ActiveRecord::Base
-    has_attached_file :image, :styles => { :medium => "300x300>",:thumb => "100x100>" }, :default_url => "no-image.jpg"
+    has_attached_file :image, :styles => { :medium => "300x300>",:thumb => "100x100>" }, :s3_protocol => :https, :default_url => "no-image.jpg"
 	
 	validates_attachment :image, 
 				:content_type => { :content_type => /\Aimage\/.*\Z/ },
