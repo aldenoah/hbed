@@ -10,7 +10,7 @@
 </nav>
 <div id="bookInfo" class="container">
   <div class="col-md-4 zeroLeft">
-    <%= image_tag('bg.jpg') %>
+    <%= image_tag @room.cover.url %>
     <div class="sidebar-wrapper">
     <h4><%= @room.title %></h4>
     <p><%= "#{@room.district}, #{@room.area.name}, #{@room.area.location.name}" %></p>

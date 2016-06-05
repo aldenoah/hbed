@@ -1,5 +1,11 @@
 class Room < ActiveRecord::Base
-  has_attached_file :cover, :styles => { :medium => "300x300>",:thumb => "100x100>" }, :s3_protocol => :https, :default_url => "no-image.jpg"
+  has_attached_file :cover, 
+                    :styles => { :medium => "300x300>",:thumb => "100x100>" }, 
+                    :s3_protocol => :https,
+                    :url => ":s3_alias_url",
+                    :s3_host_alias => "media.hourbeds.com",
+                    :path => "/:class/covers/:id_partition/:style/:filename",
+                    :default_url => "no-image.jpg"
 
   
   validates :name, :premise_name, :district, :location, :area_id, presence: true
